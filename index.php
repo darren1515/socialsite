@@ -84,7 +84,7 @@
                   </p>
                   <p>
                       <!-- Trigger the modal with a button -->
-                      <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">Open Modal</a>
+                      <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">Sign Up</a>
                   </p>
               </div>
       </div>
@@ -102,13 +102,60 @@
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Modal Header</h4>
+                      <h4 class="modal-title">Registration</h4>
                   </div>
                   <div class="modal-body">
-                      <p>Some text in the modal.</p>
+
+                      <!-- Add a form that will allow the user to sign up to the website -->
+
+                      <form>
+                          <div class="form-group">
+                                <label for="genderRatio">Gender:</label>
+                                <label class="radio-inline"><input type="radio" name="genderRatio">Male</label>
+                                <label class="radio-inline"><input type="radio" name="genderRatio">Female</label>
+                          </div>
+                          <div class="form-group">
+                              <label for="firstName">First Name:</label>
+                              <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                          </div>
+                          <div class="form-group">
+                              <label for="lastName">Last Name:</label>
+                              <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                          </div>
+                          <div class="form-group">
+                              <label for="dob">Date Of Birth:</label>
+                              <input type="date" class="form-control" id="dob">
+                          </div>
+                          <div class="form-group">
+                              <label for="telNumber">Phone Number:</label>
+                              <input type="number" class="form-control" id="telNumber" placeholder="02077273101">
+                          </div>
+                          <div class="form-group">
+                              <label for="username1">Email/Username:</label>
+                              <input type="email" class="form-control" id="username1">
+                          </div>
+                          <div class="form-group">
+                              <label for="username2">Confirm Email/Username:</label>
+                              <input type="email" class="form-control" id="username2">
+                          </div>
+                          <div class="form-group">
+                              <label for="password1">Password:</label>
+                              <input type="password" class="form-control" placeholder="Enter your password" id="username1">
+                          </div>
+                          <div class="form-group">
+                              <label for="password2">Confirm Password:</label>
+                              <input type="password" placeholder="Confirm your password" class="form-control" id="username2">
+                          </div>
+
+
+                      </form>
+
+
+
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-success pull-right">Sign Up</button>
                   </div>
               </div>
 
