@@ -8,9 +8,19 @@
  */
 
 // Included so that we can use swiftmailer.
-require("../vendor/autoload.php");
+ini_set('display_errors', 'On');
+require_once($_SERVER['DOCUMENT_ROOT'] ."/socialSite/vendor/autoload.php");
 
-require("../../../password.php");
+$directoryOfCurrentFile = dirname(__FILE__);
+$chop = explode("/",$directoryOfCurrentFile);
+require($chop[0]."/".$chop[1]."/".$chop[2]."/password.php");
+
+//var_dump($password);
+function test(){
+    global $chop;
+    echo $chop[0]."/".$chop[1]."/".$chop[2]."/password.php";
+}
+
 
 function connectToDatabase(){
 
@@ -28,9 +38,17 @@ function connectToDatabase(){
         die("Failed to connect to MySQL: " . mysqli_connect_error()) ;
     } else{
         return $con;
+
     }
 
 }
+//ini_set('display_errors', 'On');
+//try {
+//    sendEmailNoAttachment("doby151515@live.com","noreply","darrenlahr@gmail.com","d","apple","test");
+//} catch(Exception $e){
+//    die($e->getMessage());
+//}
+
 
 
 function sendEmailNoAttachment($fromAddress, $fromName, $toAddress, $toName, $subject, $body) {
@@ -192,19 +210,29 @@ if(isset($_POST['signUp'])){
 
                // We need to generate a user token that will be sent to the users email address. This will form part of the activiation url
 
-               $token = bin2hex(openssl_random_pseudo_bytes(16));
-               $encrpytedPassword = md5(md5($username).$password1);
+               $token = bin2hex(random_bytes(32));
+               $encrpytedPassword = md5(md5($username1).$password1);
 
-               $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken) VALUES ";
-               $query .= "('$firstName','$lastName','$username1','$dob', $telNumber, '$gender', '$encrpytedPassword', '$token')";
-               $result = mysqli_query($connection,$query) or die('There was a problem registering you at this time, please try again later');
+               // We now need to change our query based on whether the phone number was entered.
+
+               if(empty($telNumber)){
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Gender, password, activationToken) VALUES ";
+                   $query .= "('$firstName','$lastName','$username1','$dob', '$gender', '$encrpytedPassword', '$token')";
+               } else {
+                   // The phone number was entered
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken) VALUES ";
+                   $query .= "('$firstName','$lastName','$username1','$dob', $telNumber, '$gender', '$encrpytedPassword', '$token')";
+               }
+
+
+               $result = mysqli_query($connection,$query) or die(mysqli_error($connection) . "<br> $query");
 
                //Get ip address of the server
                $ip = gethostbyname(gethostname());
 
                $subject = "Facebook Clone Activation Email";
 
-               $activationURL = "http://".$ip.":8888/Customer%20Training%20Scheduler/activate.php?token=$token";
+               $activationURL = "http://".$ip.":8888/socialSite/activate.php?token=$token";
                // We now need to create the message that will be
                $htmlMessage =  <<<EOM
                 <html>
@@ -236,7 +264,7 @@ EOM;
            }
 
 
-
+            mysqli_close($connection);
 
         }
     } else {
