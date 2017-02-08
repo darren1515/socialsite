@@ -1,0 +1,15 @@
+{
+    "name": "darrenlahr/uni-website",
+    "description": "Social website (University Coursework)",
+    "type": "project",
+    "require": {
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "^3.1"
+    },
+    "authors": [
+        {
+            "name": "Darren Lahr",
+            "email": "darrenlahr@gmail.com"
+        }
+    ]
+}

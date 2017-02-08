@@ -1,6 +1,3 @@
-<?php
-require('vendor/autoload.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,11 +7,13 @@ require('vendor/autoload.php');
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Facebook Clone</title>
 
-      <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
 
-      <script src="vendor/jquery/dist/jquery.js"></script>
 
-      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+      <script src="vendor/components/jquery/jquery.js"></script>
+
+      <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
 
 
 
