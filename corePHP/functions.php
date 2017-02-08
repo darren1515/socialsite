@@ -4,11 +4,76 @@
  * User: darrenlahr
  * Date: 07/02/2017
  * Time: 15:56
+ * This file will contain functions that will be called from all over the land.
  */
 
-require("init.php");
+// Included so that we can use swiftmailer.
+require("../vendor/autoload.php");
 
-// We require this as we will be able to call our connection file.
+require("../../../password.php");
+
+function connectToDatabase(){
+
+    DEFINE("USERNAME", "root");
+    DEFINE("SERVERPASSWORD", "7AEA61437E");
+    DEFINE('SERVERNAME', 'localhost');
+    DEFINE("DATABASENAME", "test");
+    DEFINE("DSN",'mysql:host=' .SERVERNAME. ';dbname='.DATABASENAME);
+
+    $con = mysqli_connect(SERVERNAME,USERNAME,SERVERPASSWORD,DATABASENAME);
+
+// Check connection
+    if (mysqli_connect_errno())
+    {
+        die("Failed to connect to MySQL: " . mysqli_connect_error()) ;
+    } else{
+        return $con;
+    }
+
+}
+
+
+function sendEmailNoAttachment($fromAddress, $fromName, $toAddress, $toName, $subject, $body) {
+
+    global $emailLogin, $password;
+    // Create the SMTP configuration
+    $transport = Swift_SmtpTransport::newInstance('smtp.live.com', 587,'tls')->setUsername($emailLogin)->setPassword($password);
+
+    $mailer = Swift_Mailer::newInstance($transport);
+    $message = Swift_Message::newInstance($subject)
+        ->setFrom(array($fromAddress => $fromName))
+        ->setTo(array($toAddress => $toName))
+        ->setBody($body, 'text/html');
+    $mailer->send($message);
+
+
+}
+
+/*
+try {
+    sendEmailNoAttachment("doby151515@live.com","Doby","darrenlahr@gmail.com","Darren","Registration","This is a test");
+    echo "Email has been sent";
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//We require this as we will be able to call our connection file.
 
 //Case 1 SignUp the user
 
@@ -125,11 +190,50 @@ if(isset($_POST['signUp'])){
 
            if($result->num_rows ==0){
 
-               echo "Insert the user";
-           } else {
-               echo "This user already exists";
-           }
+               // We need to generate a user token that will be sent to the users email address. This will form part of the activiation url
 
+               $token = bin2hex(openssl_random_pseudo_bytes(16));
+               $encrpytedPassword = md5(md5($username).$password1);
+
+               $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken) VALUES ";
+               $query .= "('$firstName','$lastName','$username1','$dob', $telNumber, '$gender', '$encrpytedPassword', '$token')";
+               $result = mysqli_query($connection,$query) or die('There was a problem registering you at this time, please try again later');
+
+               //Get ip address of the server
+               $ip = gethostbyname(gethostname());
+
+               $subject = "Facebook Clone Activation Email";
+
+               $activationURL = "http://".$ip.":8888/Customer%20Training%20Scheduler/activate.php?token=$token";
+               // We now need to create the message that will be
+               $htmlMessage =  <<<EOM
+                <html>
+                  <body>
+                  <p>Dear $firstName, </p>
+                  <p>Thanks for signing up to facebook clone</p>
+                  <p>To activate your account please click the below link <br> $activationURL </p>
+                  <p>Once you have activated your account you will receive an email to confirm</p>
+                  </body>
+                </html>
+
+
+EOM;
+
+
+               // We need a try catch block to send the activation email.
+
+               try {
+
+                   sendEmailNoAttachment("doby151515@live.com","noreply",$username1,$firstName,$subject,$htmlMessage);
+                   $feedback = '<div class="alert alert-success"><strong>A activation email has been sent to your email address</strong></div>';
+               } catch (Exception $e){
+                   die($e->getMessage());
+               }
+
+
+           } else {
+               $feedback = '<div class="alert alert-warning"><strong>'.$username1.'</strong> Has already been registered</div>';
+           }
 
 
 
@@ -137,10 +241,10 @@ if(isset($_POST['signUp'])){
         }
     } else {
 
-        echo $feedback;
+        $feedback = '<div class="alert alert-danger"><strong>Please correct the following error(s)</br></strong><ul class="list-group">'. $feedback. '.</ul></div>';
 
     }
 
-
+    echo $feedback;
 
 }

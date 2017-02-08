@@ -124,7 +124,7 @@
 
                       <!-- Place a signUpFeedback here feedback is hidden by default-->
 
-                      <div id="signUpFeedback" class="alert alert-danger" hidden></div>
+                      <div id="signUpFeedback"></div>
                       <!-- Add a form that will allow the user to sign up to the website -->
 
                       <form id="signUpForm">
@@ -188,8 +188,10 @@
 
 
           $("#signUpForm").submit(function(event) {
-              alert("Handler for .submit() called.");
+              //alert("Handler for .submit() called.");
               event.preventDefault();
+
+              // Everytime this is clicked clear the
 
               // Need to create a variable so that PHP knows
               // that we want to process the signup
@@ -246,23 +248,15 @@
                     // We now have feedback message returned from the ajax call
 
                     var result = data;
+                    $("#signUpFeedback").removeAttr("hidden").html(result);
 
-                    if(result.indexOf('success') > 0 ){
-
-
-                    } else {
-
-                        //Something went wrong.
-
-                        $("#signUpFeedback").removeAttr("hidden").html(result);
-
-                        // Scroll to the top of the modal.
-                        $("#myModal").scrollTop(0);
+                    // Scroll to the top of the modal.
+                    $("#myModal").scrollTop(0);
 
 
 
 
-                    }
+
 
                     //alert(data);
                     console.log(status);
@@ -273,6 +267,13 @@
 
 
 
+          });
+
+          // When the modal opens clear the warnings
+
+          $("#myModal").on('shown.bs.modal', function(){
+              //alert("test");
+              $("#signUpFeedback").empty();
           });
 
       </script>
