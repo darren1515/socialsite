@@ -30,6 +30,16 @@
               text-align: center;
           }
 
+          /* Remove the up and down arrow on phone number */
+          input[type="number"]::-webkit-outer-spin-button,
+          input[type="number"]::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+          }
+          input[type="number"] {
+              -moz-appearance: textfield;
+          }
+
       </style>
   </head>
   <body>
@@ -110,9 +120,9 @@
                   </div>
                   <div class="modal-body">
 
-                      <!-- Place a signUpFeedback here -->
+                      <!-- Place a signUpFeedback here feedback is hidden by default-->
 
-                      <div id="signUpFeedback" class="alert alert-success">You have signed up succesfully</div>
+                      <div id="signUpFeedback" class="alert alert-danger" hidden></div>
                       <!-- Add a form that will allow the user to sign up to the website -->
 
                       <form id="signUpForm">
@@ -127,7 +137,7 @@
                           </div>
                           <div class="form-group">
                               <label for="lastName">Last Name:</label>
-                              <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                              <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
                           </div>
                           <div class="form-group">
                               <label for="dob">Date Of Birth:</label>
@@ -135,7 +145,7 @@
                           </div>
                           <div class="form-group">
                               <label for="telNumber">Phone Number:</label>
-                              <input type="number" class="form-control" id="telNumber" placeholder="02077273101" required>
+                              <input type="number" class="form-control" id="telNumber" placeholder="02077273101">
                           </div>
                           <div class="form-group">
                               <label for="username1">Email/Username:</label>
@@ -143,15 +153,16 @@
                           </div>
                           <div class="form-group">
                               <label for="username2">Confirm Email/Username:</label>
-                              <input type="email" class="form-control" id="username2">
+                              <input type="email" class="form-control" id="username2" required>
                           </div>
                           <div class="form-group">
                               <label for="password1">Password:</label>
-                              <input type="password" class="form-control" placeholder="Enter your password" id="username1">
+                              <input type="password" class="form-control" placeholder="Enter your password" id="password1" required>
+                              <span class="help-block">Your password must contain at least 1 capital and non capital letter and also be at least 8 characters in length.</span>
                           </div>
                           <div class="form-group">
                               <label for="password2">Confirm Password:</label>
-                              <input type="password" placeholder="Confirm your password" class="form-control" id="username2">
+                              <input type="password" placeholder="Confirm your password" class="form-control" id="password2" required>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -216,7 +227,6 @@
               // Now send the user inputted data to a php script for processing
 
               $.post('corePHP/functions.php', {
-
                       signUp: signUp,
                       gender: gender,
                       firstName: firstName,
@@ -227,13 +237,33 @@
                       username2: username2,
                       password1: password1,
                       password2: password2
-
-
                   },
 
                   function (data, status) {
 
+                    // We now have feedback message returned from the ajax call
 
+                    var result = data;
+
+                    if(result.indexOf('success') > 0 ){
+
+
+                    } else {
+
+                        //Something went wrong.
+
+                        $("#signUpFeedback").removeAttr("hidden").html(result);
+
+                        // Scroll to the top of the modal.
+                        $("#myModal").scrollTop(0);
+
+
+
+
+                    }
+
+                    //alert(data);
+                    console.log(status);
 
               });
 
