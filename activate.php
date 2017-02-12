@@ -6,11 +6,14 @@
  * Time: 19:58
  */
 
+
 ini_set('display_errors', 'On');
 //echo $_SERVER['DOCUMENT_ROOT']. "socialSite/corePHP/functions.php";
 require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
-
-
+$ip = gethostbyname(gethostname());
+//echo $ip;
+//header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=3" ."&alertMessage=Your account has either been previously activated or have entered an invalid token ID.");
+//exit();
 /*
  * EXAMPLE OF A ACTIVATION EMAIL
  *
@@ -25,7 +28,6 @@ http://192.168.1.3:8888/Customer%20Training%20Scheduler/activate.php?token=fe5d1
 
 Once you have activated your account you will receive an email to confirm
  */
-
 
 
 if(isset($_GET['token'])){
@@ -43,14 +45,29 @@ if(isset($_GET['token'])){
     try {
         mysqli_query($connection,$query);
 
+        //Get ip address of the server
+        $ip = gethostbyname(gethostname());
+
         if(mysqli_affected_rows($connection) >0){
 
-            echo "Your account has been activated";
 
             mysqli_close($connection);
 
+            // After the account has been activated, we have to wait 5 seconds
+            // Then redirect the user to the homepage.
+
+
+
+            // Now redirect the user
+
+
+            header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=1" ."&alertMessage=You have successfully activated your account.");
+
+
         } else {
-            echo "Your token is invalid";
+
+
+            header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=3" ."&alertMessage=Your account has either been previously activated or have entered an invalid token ID.");
         }
 
 
@@ -63,3 +80,4 @@ if(isset($_GET['token'])){
 } else {
     echo "You have entered a incorrect URL";
 }
+

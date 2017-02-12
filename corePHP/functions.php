@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 /**
  * Created by PhpStorm.
  * User: darrenlahr
@@ -20,6 +22,124 @@ function test(){
     global $chop;
     echo $chop[0]."/".$chop[1]."/".$chop[2]."/password.php";
 }
+
+
+
+// This function needs to be called when the user clicks Log in
+function logMeIn() {
+
+    // Need to start the Session
+
+    // Check if any form has been submited, is GET by default
+
+    $connection = connectToDatabase();
+    $loginError = "";
+
+    // Below Check if the sign in button has been clicked
+    // Checking for blank fields
+    $username = filter_var($_POST['username'],FILTER_SANITIZE_EMAIL);
+    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
+    $encrpytedPassword = md5(md5($username).$password);
+
+
+    if ($username=="") {
+        $loginError .= "Please enter in your email address </br>";
+    }
+
+    if ($password=="") {
+        $loginError .= "Please enter in your password </br>";
+    }
+
+
+    // Check if all the fields were entered correctly
+    if($loginError == "") {
+        // Try and log in
+
+        $sqlStatement = "SELECT * FROM users WHERE Username = '$username' AND Password = '$encrpytedPassword' LIMIT 1";
+        //QueryObject is a preparedStatement object
+        $result = mysqli_query($connection, $sqlStatement);
+
+
+        if(mysqli_num_rows($result) > 0) {
+
+
+            /*
+             * We have no verified that the user details were correct we now have to extract the row
+             */
+
+            // Since there is only one row we can place it into an associated array using the below
+
+            $row = $result->fetch_assoc();
+
+            if($row['activated'] == 1) {
+
+                /*
+                 * The account has also been activated so we are now ready to log the user in.
+                 * */
+
+
+                // We set relevant session variables that are accessible across multiple pages.
+                $_SESSION['User_ID'] = $row['User_ID'];
+                $_SESSION['First_name'] = $row['First_name'];
+                $_SESSION['Username'] = $row['Username'];
+
+
+                // 04/07/2016 Add in AutoLogout after inactivity functionaility
+
+                $_SESSION['lastActivity'] = time();
+
+                // Can set a session varialble for the max inactivity time before automatically logged out.
+
+                $_SESSION['maxInactivity'] = 10*60;
+
+
+
+
+
+
+                /* 27/06/2016 Add in routing to take into account if the user is loggin in as scheduler (1) or trainer (2)
+                  We will use an IF statement to divert the user accordingly.
+                */
+
+
+
+                // 15/07/2016 Change Functionaility - The maximum inactivity time per a user will now depend on whether the user is
+                // a scheduler or a trainer.
+                if($_SESSION['role'] == 1){
+                    // Maximum inactivity of 3 hours which is 180 minutes.
+                    $_SESSION['maxInactivity'] = 180*60;
+                    header("Location:". "http://".gethostname().":1234/Customer%20Training%20Scheduler/webpages/scheduler/index.php");
+                } else {
+                    // Maximum inactivity of 10 minutes.
+                    $_SESSION['maxInactivity'] = 10*60;
+                    header("Location:". "http://".gethostname().":1234/Customer%20Training%20Scheduler/webpages/trainer/index.php");
+                }
+
+
+
+
+            } else {
+
+                return array("This account has not yet been activated, check your email for instructions on how to do this.",3);
+            }
+
+        }
+
+        else {
+
+            return array("Either the email address or password you entered is incorrect",4);
+
+        }
+
+
+    } else {
+
+
+        return array($loginError,4);
+
+    }
+} // End of Function
 
 
 function connectToDatabase(){
@@ -48,6 +168,36 @@ function connectToDatabase(){
 //} catch(Exception $e){
 //    die($e->getMessage());
 //}
+
+function displayAlert($alertMessage, $alertType) {
+
+    /*
+    $alertType can take one of the four below values:
+    1 = success
+    2 = info
+    3 = warning
+    4 = danger
+    */
+
+// The function will return false if the parameters are wrong else it will return the specified alert with the given message
+    if(!is_int($alertType) || !is_string($alertMessage)) {
+        return false;
+    } else {
+        switch ($alertType) {
+            case 1:
+                return '<div class="alert alert-success" role="alert">' . $alertMessage . '</div>';
+            case 2:
+                return '<div class="alert alert-info" role="alert">' . $alertMessage . '</div>';
+            case 3:
+                return '<div class="alert alert-warning" role="alert">' . $alertMessage . '</div>';
+            case 4:
+                return '<div class="alert alert-danger" role="alert">' . $alertMessage . '</div>';
+            default:
+                return false;
+        }
+
+    }
+} //End of Function
 
 
 

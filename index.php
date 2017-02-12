@@ -1,3 +1,6 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,6 +57,16 @@
 
                   <h1>Facebook Clone</h1>
 
+                  <!-- Feedback from user activation -->
+                  <?php
+
+                  if(isset($_GET['alertType']) && isset($_GET['alertMessage'])) {
+
+
+                      echo displayAlert($_GET['alertMessage'], (int)$_GET['alertType']);
+                  }
+                  ?>
+
 
                   <form method="POST" action="index.php">
                       <!-- Adding this class makes the form horizontal and makes the different 'form-group'
@@ -91,6 +104,16 @@
                   <div class="text-center" id="forgotPassword">
                       <p>
                           <a href="#">Forgotten your password?</a>
+                          <?php
+                          // This is only triggered once the form has been submited
+                          if(isset($_POST["logIn"])) {
+                              /*
+                               * The below takes the output from the logMeIn() function and calls display Alert/
+                               * */
+                              echo call_user_func_array('displayAlert',logMeIn());
+                          }
+
+                          ?>
                       </p>
                       <p>
                           <!-- Trigger the modal with a button -->
@@ -191,6 +214,10 @@
               //alert("Handler for .submit() called.");
               event.preventDefault();
 
+              // 12-02-17 When the user clicks sign up we need to disable the user form
+
+              $("#signUpForm input").prop("disabled", true);
+
               // Everytime this is clicked clear the
 
               // Need to create a variable so that PHP knows
@@ -250,13 +277,16 @@
                     var result = data;
                     $("#signUpFeedback").removeAttr("hidden").html(result);
 
+
                     // Scroll to the top of the modal.
                     $("#myModal").scrollTop(0);
 
-
-
-
-
+                    // We now need to check whether or not result contains successful
+                    // if it does then we keep all the buttons disabled.
+                    if(result.indexOf('success') >= 0) {
+                        // We want to disable all the inputs in the form
+                        $("#signUpForm input").prop("disabled",true);
+                    }
 
                     //alert(data);
                     console.log(status);
@@ -274,7 +304,18 @@
           $("#myModal").on('shown.bs.modal', function(){
               //alert("test");
               $("#signUpFeedback").empty();
+
+              $('#signUpForm')[0].reset();
+
+              // We need to also ensure that none of the inputs are disabled.
+              $("#signUpForm input").prop("disabled",false);
+
           });
+
+          // When the user hits the signup button we need to disable the form output, stop the
+          // user from trying to register twice.
+
+
 
       </script>
 
