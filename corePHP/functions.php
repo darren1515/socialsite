@@ -80,7 +80,7 @@ function logMeIn() {
 
 
                 // We set relevant session variables that are accessible across multiple pages.
-                $_SESSION['User_ID'] = $row['User_ID'];
+                $_SESSION['User_id'] = $row['User_id'];
                 $_SESSION['First_name'] = $row['First_name'];
                 $_SESSION['Username'] = $row['Username'];
 
@@ -93,28 +93,18 @@ function logMeIn() {
 
                 $_SESSION['maxInactivity'] = 10*60;
 
+                // We now need to redirect the user to the homepage.
+
+
+                //Get ip address of the server
+                $ip = gethostbyname(gethostname());
+
+                mysqli_close($connection);
+
+                header("Location:". "http://".$ip.":8888/socialSite/webpages/index.php");
 
 
 
-
-
-                /* 27/06/2016 Add in routing to take into account if the user is loggin in as scheduler (1) or trainer (2)
-                  We will use an IF statement to divert the user accordingly.
-                */
-
-
-
-                // 15/07/2016 Change Functionaility - The maximum inactivity time per a user will now depend on whether the user is
-                // a scheduler or a trainer.
-                if($_SESSION['role'] == 1){
-                    // Maximum inactivity of 3 hours which is 180 minutes.
-                    $_SESSION['maxInactivity'] = 180*60;
-                    header("Location:". "http://".gethostname().":1234/Customer%20Training%20Scheduler/webpages/scheduler/index.php");
-                } else {
-                    // Maximum inactivity of 10 minutes.
-                    $_SESSION['maxInactivity'] = 10*60;
-                    header("Location:". "http://".gethostname().":1234/Customer%20Training%20Scheduler/webpages/trainer/index.php");
-                }
 
 
 
@@ -134,6 +124,8 @@ function logMeIn() {
 
 
     } else {
+
+        // The user has not entered the password or email address
 
 
         return array($loginError,4);
@@ -425,4 +417,36 @@ EOM;
 
     echo $feedback;
 
+}
+
+// We need a method that will be called on every single page to check whether a user is authorized to view the given page
+
+// Need a function that will check whether the user is logged in
+
+function is_logged_in() {
+
+    if(isset($_SESSION['User_id'])) {
+
+        return true;
+
+    }
+
+    else {
+
+        return false;
+
+    }
+
+}
+
+// Need a function to log out a user
+
+function log_me_out() {
+
+// remove all session variables
+
+    session_unset();
+
+// destroy the Session
+    session_destroy();
 }

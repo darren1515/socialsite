@@ -11,6 +11,16 @@ ob_start();
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
 
+// We now need to kick the user out to the homepage if they have not logged in
+
+if(!is_logged_in()){
+    $ip = gethostbyname(gethostname());
+
+    header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=4" ."&alertMessage=You need to log in before you are able to view this page");
+    exit();
+
+}
+
 ?>
 
 
@@ -119,6 +129,7 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
+            <li><a href="../index.php" class="logOutLink">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

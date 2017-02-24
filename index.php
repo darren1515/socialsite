@@ -1,6 +1,8 @@
 <?php
+ob_start();
 require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -284,8 +286,15 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                     // We now need to check whether or not result contains successful
                     // if it does then we keep all the buttons disabled.
                     if(result.indexOf('success') >= 0) {
-                        // We want to disable all the inputs in the form
+                        // Disable inputs if signup was successful.
                         $("#signUpForm input").prop("disabled",true);
+                    } else {
+
+                        // The user has entered invalid details so we now need to let
+                        // them change the values in the input fields.
+
+                        $("#signUpForm input").prop("disabled", false);
+
                     }
 
                     //alert(data);
@@ -326,7 +335,9 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
   </body>
 </html>
 
-
+<?php
+ob_end_flush();
+?>
 
 
 
