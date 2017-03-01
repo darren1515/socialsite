@@ -21,23 +21,20 @@ if(!is_logged_in()){
 
 }
 
-#On every page we need a variable that will highlight the relevant page we are on
-# in the nav bar
-
-$pageTitle = 'index';
+$pageTitle = 'profileSettings';
 
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <!-- Insert/include head code here -->
 
-      <?php require("includes/head.php"); ?>
+  <?php require("includes/head.php"); ?>
 
       <style>
           /* Sticky footer styles
-      -------------------------------------------------- */
+-------------------------------------------------- */
           html {
               position: relative;
               min-height: 100%;
@@ -83,14 +80,13 @@ $pageTitle = 'index';
     <!-- Place the nav bar here -->
     <?php require("includes/nav.php"); ?>
 
-
     <!-- Begin page content -->
     <div class="container">
       <div class="page-header">
         <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
       </div>
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
-      <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+
+
     </div>
 
     <footer class="footer">

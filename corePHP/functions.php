@@ -139,7 +139,7 @@ function connectToDatabase(){
     DEFINE("USERNAME", "root");
     DEFINE("SERVERPASSWORD", "7AEA61437E");
     DEFINE('SERVERNAME', 'localhost');
-    DEFINE("DATABASENAME", "test");
+    DEFINE("DATABASENAME", "4network");
     DEFINE("DSN",'mysql:host=' .SERVERNAME. ';dbname='.DATABASENAME);
 
     $con = mysqli_connect(SERVERNAME,USERNAME,SERVERPASSWORD,DATABASENAME);
