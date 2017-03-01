@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 24, 2017 at 07:39 PM
+-- Generation Time: Mar 01, 2017 at 12:49 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test`
+-- Database: `4network`
 --
 
 -- --------------------------------------------------------
@@ -63,7 +63,8 @@ INSERT INTO `friendgroup` (`Group_ID`, `User_ID`, `Create_TIME`) VALUES
 
 CREATE TABLE `friends` (
   `User_id` int(11) NOT NULL,
-  `Friend_id` int(11) NOT NULL
+  `Friend_id` int(11) NOT NULL,
+  `friendStatus` varchar(10) NOT NULL COMMENT 'Either accepted or pending'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -95,13 +96,23 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privacy`
+-- Table structure for table `privacysettings`
 --
 
-CREATE TABLE `privacy` (
-  `User_id` int(11) NOT NULL,
-  `privacy` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `privacysettings` (
+  `privacyID` int(11) NOT NULL,
+  `description` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `privacysettings`
+--
+
+INSERT INTO `privacysettings` (`privacyID`, `description`) VALUES
+(1, 'private'),
+(2, 'friends'),
+(3, 'friends of friends'),
+(4, 'all');
 
 -- --------------------------------------------------------
 
@@ -120,6 +131,7 @@ CREATE TABLE `users` (
   `Gender` varchar(20) CHARACTER SET ucs2 NOT NULL,
   `activationToken` text NOT NULL,
   `activated` tinyint(1) NOT NULL DEFAULT '0',
+  `privacysettings_fk` int(11) NOT NULL COMMENT 'Links to primary key in privacysettings table',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -127,8 +139,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `Timestamp`) VALUES
-(24, 'Darren', 'Lahr', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, '2017-02-24 18:05:37');
+INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `privacysettings_fk`, `Timestamp`) VALUES
+(24, 'Darren', 'Lahr', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, 0, '2017-02-24 18:05:37');
 
 --
 -- Indexes for dumped tables
@@ -151,6 +163,12 @@ ALTER TABLE `friendgroup`
 --
 ALTER TABLE `grouprelation`
   ADD PRIMARY KEY (`Operation_ID`);
+
+--
+-- Indexes for table `privacysettings`
+--
+ALTER TABLE `privacysettings`
+  ADD PRIMARY KEY (`privacyID`);
 
 --
 -- Indexes for table `users`
@@ -177,6 +195,11 @@ ALTER TABLE `friendgroup`
 --
 ALTER TABLE `grouprelation`
   MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `privacysettings`
+--
+ALTER TABLE `privacysettings`
+  MODIFY `privacyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
