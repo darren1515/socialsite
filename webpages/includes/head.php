@@ -26,3 +26,11 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- 01/03/16 Add react + jsx to react converter -->
+<!--USING WEBLINKS-->
+<!--<script src="https://unpkg.com/react@15/dist/react.min.js"></script>-->
+<!--<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>-->
+
+<!-- Stored locally, allow intelisense. -->
+

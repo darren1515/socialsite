@@ -83,14 +83,74 @@ $pageTitle = 'index';
     <!-- Place the nav bar here -->
     <?php require("includes/nav.php"); ?>
 
+    <!--------------------------- REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE  ----------------------------------------->
+
+    <script type="text/babel">
+
+        var App = React.createClass({
+
+
+            render: function() {
+
+                return(
+
+                        <div><p>THIS IS RENDERED IN REACT</p></div>
+
+                );
+
+            }
+
+
+        });
+
+
+        ReactDOM.render(<App/>,document.getElementById('blogreact'));
+
+
+
+    </script>
+
+    <!--------------------------- REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE  ----------------------------------------->
+
 
     <!-- Begin page content -->
     <div class="container">
-      <div class="page-header">
-        <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
-      </div>
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
-      <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+
+        <!-- The first row will consist of the page header/welcome message. -->
+        <div class="row">
+            <div class="page-header">
+                <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p class="lead">Use this page to manage your blog. You can create, edit, update and delete your posts below</p>
+
+
+            </div>
+            <div class="col-md-4">
+                <h1>JIALIN ZONE</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- This element will render the react component/part of the website -->
+                <div id="blogreact"></div>
+
+            </div>
+            <div class="col-md-4">
+                <h1>JIALIN ZONE</h1>
+            </div>
+        </div>
+
+
+
+
+
+
+
     </div>
 
     <footer class="footer">
