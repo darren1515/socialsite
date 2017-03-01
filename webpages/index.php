@@ -132,6 +132,60 @@ $pageTitle = 'index';
                 this.serverRequest.abort();
             },
 
+            // This will be called when the user clicks the New post button
+            // By default when a user creates a new post there will be no text.
+            addNewPost: function(){
+                $.get("api/create_new_post.php", function (newpost) {
+                    //newpost is a javascript object with postID and latestTime
+
+                    newpost = JSON.parse(newpost);
+
+                    //Make a copy what is currently in the posts state
+                    var arr = this.state.posts;
+                    // Add the new post info
+
+                    arr.unshift(newpost);
+
+                    this.setState({posts:arr});
+
+                }.bind(this));
+
+
+            },
+
+            removePost: function(postID){
+                // Use ajax to send the data to delete_post
+
+
+                $.post("api/delete_products.php",
+                    { postID: postID },
+                    function(success){
+
+                        if(success){
+                            // Its been deleted, rather then pull all posts again from the database loop through the
+                            // posts state and pop the entry
+                            for(i = 0; i< this.state.posts.length; i++){
+                                 if(state.posts[i].postID == postID){
+                                     break;
+                                 }
+                            }
+
+                            // We now need to make a copy of state.posts
+
+                            var arr = this.state.posts;
+                            arr.splice(i,1);
+                            this.setState({posts:arr});
+
+                        }
+
+
+
+                    }.bind(this)
+                );
+
+
+            },
+
             render: function() {
 
                 return(
@@ -139,14 +193,14 @@ $pageTitle = 'index';
                         <div>
                             <div className="row">
 
-                                <button type="button" className="btn btn-primary">New Post <span className="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" onClick={this.addNewPost} className="btn btn-primary">New Post <span className="glyphicon glyphicon-plus"></span></button>
 
                             </div>
                             <div className="row">
                                 {/*Now need to loop over each post, and create a corresponding blog post component*/}
                                 {this.state.posts.map(function(object,i){
 
-                                    return (<Blogpost key={object.postID} date={object.latestTime} text={object.message}/>);
+                                    return (<Blogpost key={object.postID} index={object.postID} date={object.latestTime} text={object.message}/>);
 
 
                                 })
@@ -188,6 +242,15 @@ $pageTitle = 'index';
                 this.setState({editMode:false});
             },
 
+            // When deleting a blog post we need to use a method in the parent component
+
+            delete: function (){
+                console.log('Delete the comment.')
+            },
+
+
+
+
             handleChange: function(event){
 
                 if(this.state.editMode){
@@ -212,7 +275,7 @@ $pageTitle = 'index';
                 return (
                         <div>
                             <button type="button" onClick={this.edit} className="btn btn-warning"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-                            <button type="button" className="btn btn-danger"><span className="glyphicon glyphicon-trash"></span> Delete</button>
+                            <button type="button" onClick={this.delete} className="btn btn-danger"><span className="glyphicon glyphicon-trash"></span> Delete</button>
                         </div>
                 );
 

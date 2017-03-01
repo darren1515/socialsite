@@ -34,23 +34,26 @@ class Blogpost
             $latestTime=date('Y-m-d H:i:s');
 
 
-            // insert query
+            // insert query, by default when a user creates a new post it is blank.
             $query = "INSERT INTO $this->table_name (userID, latestTime) VALUES ('$this->userID','$latestTime')";
 
             $result = mysqli_query($this->conn,$query);
 
 
 
-            // Execute the query
-            if($result = mysqli_query($this->conn,$query)){
-                return true;
+            // Execute the query and return the latest postID, and the $latestTime
+            if($result){
+
+                $post_id = mysqli_insert_id($this->conn);
+                $info = array("postID"=>$post_id, 'latestTime'=>$latestTime, "message"=>'');
+
+                return json_encode($info);
+
             }else{
                 return false;
             }
 
             // Close the connection
-
-
 
         }
 
@@ -66,8 +69,8 @@ class Blogpost
 
     public function readAll(){
 
-        //select all data
-        $query = "SELECT postID, message, latestTime FROM posts WHERE userID = '$this->userID'";
+        //select all data, We want newest posts to be at the top
+        $query = "SELECT postID, message, latestTime FROM posts WHERE userID = '$this->userID' ORDER BY latestTime DESC";
 
         $result = mysqli_query($this->conn,$query);
 
@@ -77,6 +80,20 @@ class Blogpost
         return json_encode($allBlogPosts);
     }
 
+    // Remove a comment, all it requires is the userID and postID which is the key.
 
+    public function deletePost($postID){
+
+        //Delete query, we need to ensure that we only remove one record and condition also on userID
+        $postID=htmlspecialchars(strip_tags($postID));
+        $query = "DELETE FROM $this->table_name WHERE postID=$postID and userID=$this->userID LIMIT 1";
+
+        if(mysqli_query($this->conn,$query) === TRUE){
+            return True;
+        } else {
+            return False;
+        }
+
+    }
 
 }
