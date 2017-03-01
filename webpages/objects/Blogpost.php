@@ -96,4 +96,20 @@ class Blogpost
 
     }
 
+    // To update a comment we need the userID, postID and the text
+    public function updatePost($postID,$newText) {
+
+
+
+        $query = "UPDATE $this->table_name SET message='$newText' WHERE postID=$postID and userID=$this->userID LIMIT 1";
+
+        if(mysqli_query($this->conn,$query) === TRUE){
+            return True;
+        } else {
+            return False;
+        }
+
+    }
+
+
 }

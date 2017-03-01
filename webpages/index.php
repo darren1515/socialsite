@@ -153,36 +153,75 @@ $pageTitle = 'index';
 
             },
 
-            removePost: function(postID){
+            removePost: function(postID) {
                 // Use ajax to send the data to delete_post
 
 
-                $.post("api/delete_products.php",
-                    { postID: postID },
-                    function(success){
+                $.post("api/delete_post.php",
+                    {postID: postID},
+                    function (success) {
 
-                        if(success){
+                        if (success) {
                             // Its been deleted, rather then pull all posts again from the database loop through the
                             // posts state and pop the entry
-                            for(i = 0; i< this.state.posts.length; i++){
-                                 if(state.posts[i].postID == postID){
-                                     break;
-                                 }
+                            for (var i = 0; i < this.state.posts.length; i++) {
+                                if (this.state.posts[i].postID == postID) {
+                                    var arr = this.state.posts;
+                                    arr.splice(i, 1);
+                                    this.setState({posts: arr});
+                                    break;
+                                }
                             }
 
-                            // We now need to make a copy of state.posts
-
-                            var arr = this.state.posts;
-                            arr.splice(i,1);
-                            this.setState({posts:arr});
+                            // We now need to make a copy of state.post
 
                         }
 
 
+                    }.bind(this));
 
-                    }.bind(this)
-                );
 
+
+            },
+
+            // Create a function that will update a users post once they press the save button
+
+            updatePost: function(postID, newText){
+
+
+                $.post("api/update_post.php",
+                    {postID: postID, newText: newText},
+                    function (success) {
+
+                        if (success) {
+                            // The entry has been successfully updated. Find it in the
+                            // posts and update it instead of requesting data from server.
+                            for (var i = 0; i < this.state.posts.length; i++) {
+                                if (this.state.posts[i].postID == postID) {
+                                    var arr = this.state.posts;
+                                    arr[i].text = newText;
+                                    this.setState({posts: arr});
+                                    break;
+                                }
+                            }
+
+                            // We now need to make a copy of state.post
+
+                        }
+
+                    }.bind(this));
+
+
+
+
+            },
+
+            // Create a function that will run for every blog post
+
+            eachPost: function(object,i) {
+
+                return (<Blogpost key={object.postID} index={object.postID} date={object.latestTime}
+                                  text={object.message} deletePost={this.removePost} updatePost={this.updatePost}/>);
 
             },
 
@@ -198,16 +237,10 @@ $pageTitle = 'index';
                             </div>
                             <div className="row">
                                 {/*Now need to loop over each post, and create a corresponding blog post component*/}
-                                {this.state.posts.map(function(object,i){
-
-                                    return (<Blogpost key={object.postID} index={object.postID} date={object.latestTime} text={object.message}/>);
-
-
-                                })
+                                {this.state.posts.map(this.eachPost)}
 
 
 
-                                }
 
                             </div>
 
@@ -239,13 +272,20 @@ $pageTitle = 'index';
             },
 
             save: function() {
-                this.setState({editMode:false});
+                console.log('Update the comment.');
+                this.props.updatePost(this.props.index,this.state.text);
             },
 
             // When deleting a blog post we need to use a method in the parent component
 
             delete: function (){
-                console.log('Delete the comment.')
+                console.log('Delete the comment.');
+                this.props.deletePost(this.props.index);
+            },
+
+            cancelChanges : function(){
+                //No updates will made to the database and we will leave editMode
+                this.setState({editMode:false});
             },
 
 
@@ -263,7 +303,7 @@ $pageTitle = 'index';
 
                 return (
                         <div>
-                            <button type="button" className="btn btn-warning"><span className="glyphicon glyphicon-refresh"></span> Undo</button>
+                            <button type="button" onClick={this.cancelChanges} className="btn btn-warning"><span className="glyphicon glyphicon-refresh"></span> Undo</button>
                             <button type="button" onClick={this.save} className="btn btn-success"><span className="glyphicon glyphicon-floppy-disk"></span> Save </button>
                         </div>
 
