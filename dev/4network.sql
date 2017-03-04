@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 01, 2017 at 12:49 PM
+-- Generation Time: Mar 04, 2017 at 02:40 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -96,6 +96,27 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `postID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `message` mediumtext NOT NULL,
+  `latestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
+(33, 24, 'hjgjhghjgjh', '2017-03-02 15:16:00'),
+(34, 24, 'hello max', '2017-03-02 15:16:56');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `privacysettings`
 --
 
@@ -140,7 +161,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `privacysettings_fk`, `Timestamp`) VALUES
-(24, 'Darren', 'Lahr', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, 0, '2017-02-24 18:05:37');
+(24, 'Darren', 'Lahr', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, 0, '2017-02-24 18:05:37'),
+(25, 'Bob', 'Marin', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-03 23:59:48'),
+(26, 'BOBBY', 'Smith', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-03 23:59:48'),
+(27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-04 00:00:09');
 
 --
 -- Indexes for dumped tables
@@ -163,6 +187,12 @@ ALTER TABLE `friendgroup`
 --
 ALTER TABLE `grouprelation`
   ADD PRIMARY KEY (`Operation_ID`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`postID`);
 
 --
 -- Indexes for table `privacysettings`
@@ -196,6 +226,11 @@ ALTER TABLE `friendgroup`
 ALTER TABLE `grouprelation`
   MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
 -- AUTO_INCREMENT for table `privacysettings`
 --
 ALTER TABLE `privacysettings`
@@ -204,7 +239,7 @@ ALTER TABLE `privacysettings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

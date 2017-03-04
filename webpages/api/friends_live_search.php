@@ -44,7 +44,7 @@ if(isset($_POST['friend_search'])){
         while($row = mysqli_fetch_assoc($result)) {
 
             // We need to print out both the first name, last name and a button.
-            echo "<tr><td class='testing' rel='"  .$row['User_id'].  "'>" .$row['First_name'] . " " .$row['Last_name'] . " <button type=\"button\" class=\"btn btn-success\">Add</button></td></tr>";
+            echo "<tr><td class='testing' rel='"  .$row['User_id'].  "'>" .$row['First_name'] . " " .$row['Last_name'] . " <button style='height:5px' type=\"button\" class=\"btn btn-success\">Add</button></td></tr>";
 
 
         }
