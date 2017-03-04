@@ -93,9 +93,12 @@
 
     // When the user clicks out of the search box we want to remove the search results
 
-    $("#friendSearchBox").focusout(function(){
-        // Clear everything in livesearch div
-        $("#livesearch").empty();
-    });
+//    $("#friendSearchBox").focusout(function(){
+//        // Clear everything in livesearch div
+//        $("#livesearch").empty();
+//    });
+
+
+
 
 </script>
