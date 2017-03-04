@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">4 Network</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -32,8 +32,70 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
+
                 <li><a href="../index.php" class="logOutLink">Logout</a></li>
+                    <!-- This will be used for searching for friends -->
+                <div class="col-sm-3 col-md-3 pull-right">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" size="75" class="form-control" id="friendSearchBox" placeholder="Search For Friends">
+                        </div>
+                        <div id="livesearch" style="background-color:white">
+
+                        </div>
+                    </form>
+                </div>
             </ul>
+
         </div><!--/.nav-collapse -->
     </div>
 </nav>
+
+<!-- ----------------    JAVASCRIPT CODE THAT MAKES THE LIVE SEARCH WORK -----------------   -->
+
+<script>
+
+    $("#friendSearchBox").keyup(function(event){
+        // Pass through the event, to access whats in the text box.
+       var text = event.target.value.trim();
+       console.log(text);
+
+       //If the text box contains any text we want to run a query
+
+        if(text !== ""){
+
+            $.ajax({
+                url:"api/friends_live_search.php",
+                data:{friend_search: text},
+                type: "POST",
+                success:function(returnedData) {
+
+                    // returnedData will be equal to what was echoed in friends_live_search.php
+
+                    // Put the returnedData into the livesearch div.
+                    $("#livesearch").html(returnedData);
+
+                }
+
+
+
+            });
+
+
+
+
+        } else {
+            $("#livesearch").html("<tr><td>no users found</td></tr>");
+        }
+
+
+    });
+
+    // When the user clicks out of the search box we want to remove the search results
+
+    $("#friendSearchBox").focusout(function(){
+        // Clear everything in livesearch div
+        $("#livesearch").empty();
+    });
+
+</script>

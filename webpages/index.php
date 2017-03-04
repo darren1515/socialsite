@@ -76,6 +76,10 @@ $pageTitle = 'index';
               font-size: 80%;
           }
 
+          /*Stop the nav bar from overlapping the page content*/
+
+
+
       </style>
   </head>
 
@@ -371,7 +375,7 @@ $pageTitle = 'index';
     <div class="container">
 
         <!-- The first row will consist of the page header/welcome message. -->
-        <div class="row">
+        <div class="row" style="padding-top: 50px">
             <div class="page-header">
                 <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
             </div>

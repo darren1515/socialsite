@@ -154,6 +154,7 @@ function connectToDatabase(){
     }
 
 }
+
 //ini_set('display_errors', 'On');
 //try {
 //    sendEmailNoAttachment("doby151515@live.com","noreply","darrenlahr@gmail.com","d","apple","test");
