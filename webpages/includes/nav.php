@@ -2,6 +2,26 @@
  to be defined at the top.
  -->
 
+<style>
+
+
+    /*
+    Add styling to the results of a live friends search
+    we want it to overlap the nav bar
+    */
+
+    #livesearch {
+        background-color:white;
+        color:blue;
+        position:absolute;
+        z-index:900;
+        width:75%;
+        border-width: 2px;
+    }
+
+
+</style>
+
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -35,7 +55,7 @@
 
                 <li><a href="../index.php" class="logOutLink">Logout</a></li>
                     <!-- This will be used for searching for friends -->
-                <div class="col-sm-3 col-md-3 pull-right">
+                <div class="col-sm-3 col-md-3 pull-right" id="friendSearchContainer">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
                             <input type="text" size="75" class="form-control" id="friendSearchBox" placeholder="Search For Friends">
@@ -43,6 +63,7 @@
                         <div id="livesearch" style="background-color:white">
 
                         </div>
+
                     </form>
                 </div>
             </ul>
@@ -51,6 +72,9 @@
     </div>
 </nav>
 
+<!-- Place the search bar  -->
+
+
 <!-- ----------------    JAVASCRIPT CODE THAT MAKES THE LIVE SEARCH WORK -----------------   -->
 
 <script>
@@ -58,7 +82,7 @@
     $("#friendSearchBox").keyup(function(event){
         // Pass through the event, to access whats in the text box.
        var text = event.target.value.trim();
-       console.log(text);
+
 
        //If the text box contains any text we want to run a query
 
@@ -85,18 +109,17 @@
 
 
         } else {
-            $("#livesearch").html("<tr><td>no users found</td></tr>");
+            $("#livesearch").empty();
         }
 
 
     });
 
-    // When the user clicks out of the search box we want to remove the search results
 
-//    $("#friendSearchBox").focusout(function(){
-//        // Clear everything in livesearch div
-//        $("#livesearch").empty();
-//    });
+
+
+
+
 
 
 
