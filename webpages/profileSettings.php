@@ -81,10 +81,40 @@ $pageTitle = 'profileSettings';
     <?php require("includes/nav.php"); ?>
 
     <!-- Begin page content -->
-    <div class="container">
+    <div class="container" style="margin-top:50px">
       <div class="page-header">
-        <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
+        <h1>Make changes to your account settings</h1>
       </div>
+
+      <!-- Place a form that will allow the user to set privacy settings, put phone number etc -->
+      <section class="row">
+          <form>
+              <div class="form-group">
+                  <h4>Select privacy level:</h4>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                          <strong>Private</strong> - Your blog and photos will only be viewable by you and you alone
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                          <strong>Friends</strong> - Your blog and photos will by viewable to you and your friends
+                      </label>
+                  </div>
+                  <div class="radio disabled">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                          Option three is disabled
+                      </label>
+                  </div>
+              </div>
+
+          </form>
+      </section>
+
+
 
 
     </div>
