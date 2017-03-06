@@ -58,7 +58,7 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                   <!-- This div will have a width of 6 columns and have
                   a left margin of 3 columns to center it in the middle of the page-->
 
-                  <h1>Facebook Clone</h1>
+                  <h1>4Network</h1>
 
                   <!-- Feedback from user activation -->
                   <?php
@@ -175,6 +175,21 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                               <label for="telNumber">Phone Number:</label>
                               <input type="number" class="form-control" id="telNumber" placeholder="02077273101">
                           </div>
+                          <!-- 05/03/17 Need to let the user select a privacy level for their profile
+                           will it private, or viewable by friends. By default select friends.
+                           -->
+                          <div class="form-group">
+                              <label for="privacyOption">Privacy Level:</label>
+                              <select class="form-control" id="privacyOption" name="privacyOption">
+                                  <option value="1">Private</option>
+                                  <option value="2" selected>Friends</option>
+                                  <option value="3">Friends of friends</option>
+                                  <option value="4">All</option>
+                              </select>
+                              <span class="help-block">This privacy option is applied to both your blog and photos. This can be changed at a later
+                              stage</span>
+                          </div>
+
                           <div class="form-group">
                               <label for="username1">Email/Username:</label>
                               <input type="email" class="form-control" id="username1" required>
@@ -258,6 +273,11 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
               var password2 = $("#password2").val();
               console.log(password2);
 
+              // Now need to also grab the value in the privacy level drop down
+              // 05/03/17
+
+              var privacyOption = $("#privacyOption").val();
+
               // Now send the user inputted data to a php script for processing
 
               $.post('corePHP/functions.php', {
@@ -267,6 +287,7 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                       lastName: lastName,
                       dob: dob,
                       telNumber: telNumber,
+                      privacyOption:privacyOption,
                       username1: username1,
                       username2: username2,
                       password1: password1,

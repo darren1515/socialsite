@@ -61,11 +61,15 @@ if(isset($_POST['friend_search'])){
     $numberOfFriends = mysqli_num_rows($result);
     $amountOfFreeSpace = $upperLimit - $numberOfFriends;
     $arrayIDs = [];
+
+    // Always print the table
+
+    echo '<table class="table table-hover" style="width:100%">';
+    echo '<tbody>';
+
+    // If numberOfFriends that mach our search is greater than print these first
     if ($numberOfFriends > 0) {
 
-        // First echo out a table
-
-        echo '<table style="width:100%">';
 
         while($row = mysqli_fetch_assoc($result)) {
 
@@ -76,30 +80,45 @@ if(isset($_POST['friend_search'])){
 
             //Now that all the friends have been printed, show the non friends if there is space
         }
-        if($amountOfFreeSpace>0){
-            // We now need to see if there are any users who are not friends. First select all the users that are not friends then filter based on the user
-            // inputed text
-            $sql = $sql = "SELECT User_id,First_name,Last_name FROM users WHERE User_id NOT IN ( '" . implode($arrayIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
-            $result = mysqli_query($con,$sql);
-            if (!$result) {
-                die(mysqli_error($con));
-            }
-            while($row = mysqli_fetch_assoc($result)) {
+
+    }
+
+    // If there is free space print then show non friends
+
+    if($amountOfFreeSpace>0){
+        // We now need to see if there are any users who are not friends. First select all the users that are not friends then filter based on the user
+        // inputed text
+        $sql  = "SELECT User_id,First_name,Last_name FROM users WHERE User_id NOT IN ( '" . implode($arrayIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
+
+        $result = mysqli_query($con,$sql);
+        $numberOfNonFriends = mysqli_num_rows($result);
+        if (!$result) {
+            die(mysqli_error($con));
+        }
+        while($row = mysqli_fetch_assoc($result)) {
 
 
 
-                // We need to print out both the first name, last name and a button.
-                echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right\">Add</button></td></tr>";
+            // We need to print out both the first name, last name and a button.
+            echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right\">Add</button></td></tr>";
 
-                //Now that all the friends have been printed, show the non friends if there is space
-            }
-
+            //Now that all the friends have been printed, show the non friends if there is space
         }
 
+    }
 
-    } else {
+    // If no one was found then say no users found
+
+    if(($numberOfFriends + $numberOfNonFriends) == 0){
         echo "<tr><td>no users found</td></tr>";
     }
+
+    // We now need to close the table
+
+    echo "</tbody></table>";
+
+
+
 }
 
 ?>

@@ -382,25 +382,22 @@ $pageTitle = 'index';
         </div>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 col-md-offset-2">
                 <p class="lead">Use this page to manage your blog. You can create, edit, update and delete your posts below</p>
 
 
             </div>
-            <div class="col-md-4">
-                <h1>JIALIN ZONE</h1>
-            </div>
+
         </div>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 col-md-offset-2">
                 <!-- This element will render the react component/part of the website -->
                 <div id="blogreact"></div>
 
             </div>
-            <div class="col-md-4">
-                <h1>JIALIN ZONE</h1>
-            </div>
+
+
         </div>
 
 

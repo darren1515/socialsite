@@ -136,12 +136,14 @@ function logMeIn() {
 
 function connectToDatabase(){
 
+    if(!defined('SERVERNAME')){
+
     DEFINE("USERNAME", "root");
     DEFINE("SERVERPASSWORD", "7AEA61437E");
     DEFINE('SERVERNAME', 'localhost');
     DEFINE("DATABASENAME", "4network");
     DEFINE("DSN",'mysql:host=' .SERVERNAME. ';dbname='.DATABASENAME);
-
+    }
     $con = mysqli_connect(SERVERNAME,USERNAME,SERVERPASSWORD,DATABASENAME);
 
 // Check connection
@@ -254,6 +256,15 @@ if(isset($_POST['signUp'])){
     $password1 = trim($_POST['password1']);
     $password2 = trim($_POST['password2']);
 
+    // 05/03/17 a privacy option was added to the form
+    // No verification is needed as the privacyoption is always set (it is a dropdown box)
+
+    $privacyOption = filter_var($_POST['privacyOption'], FILTER_VALIDATE_INT);
+
+    // Validate phone number
+
+
+
 
     //Create a variable that will be used to userfeedback
 
@@ -357,14 +368,15 @@ if(isset($_POST['signUp'])){
                $encrpytedPassword = md5(md5($username1).$password1);
 
                // We now need to change our query based on whether the phone number was entered.
+               // 05/03/17 Alter the below queries to include $privacyOption
 
                if(empty($telNumber)){
-                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Gender, password, activationToken) VALUES ";
-                   $query .= "('$firstName','$lastName','$username1','$dob', '$gender', '$encrpytedPassword', '$token')";
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Gender, password, activationToken, privacysettings_fk) VALUES ";
+                   $query .= "('$firstName','$lastName','$username1','$dob', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                } else {
                    // The phone number was entered
-                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken) VALUES ";
-                   $query .= "('$firstName','$lastName','$username1','$dob', $telNumber, '$gender', '$encrpytedPassword', '$token')";
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken, privacysettings_fk) VALUES ";
+                   $query .= "('$firstName','$lastName','$username1','$dob', '$telNumber', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                }
 
 
@@ -451,3 +463,45 @@ function log_me_out() {
 // destroy the Session
     session_destroy();
 }
+
+// 05/03/17 Function that returns all the existing user settings
+// Will need the userID which is from session super global
+
+function pullUserSettings(){
+
+
+    $con = connectToDatabase();
+
+    $sql = "SELECT First_name, Last_name, Username, Phone, Gender, privacysettings_fk FROM users WHERE User_id = " . $_SESSION['User_id'];
+
+    $result = mysqli_query($con,$sql);
+
+    $userSettings = mysqli_fetch_assoc($result);
+
+    //Will return an associative array/ dictionary with the user settings.
+
+    return $userSettings;
+
+
+}
+
+//05/03/17 The below will take the $_POST assoc array containing the new user profile settings
+// and update the database
+
+function updateUserSettings($newUserSettings){
+
+    $con = connectToDatabase();
+
+    $firstName = filter_var(trim($newUserSettings['firstName']), FILTER_SANITIZE_STRING);
+    $lastName = filter_var(trim($newUserSettings['lastName']), FILTER_SANITIZE_STRING);
+    $privacy = filter_var(trim($newUserSettings['optionsPrivacy']), FILTER_VALIDATE_INT);
+    $phone = filter_var(trim($newUserSettings['Phone']), FILTER_SANITIZE_STRING);
+
+    $sql = "UPDATE users SET First_name='$firstName',Last_name='$lastName',privacysettings_fk=$privacy,Phone='$phone' WHERE User_id = " . $_SESSION['User_id'];
+
+    mysqli_query($con,$sql);
+
+
+
+}
+

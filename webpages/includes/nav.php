@@ -58,7 +58,7 @@
                 <div class="col-sm-3 col-md-3 pull-right" id="friendSearchContainer">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
-                            <input type="text" size="75" class="form-control" id="friendSearchBox" placeholder="Search For Friends">
+                            <input type="text" size="75" class="form-control" id="friendSearchBox" placeholder="Search For Friends" autocomplete="off">
                         </div>
                         <div id="livesearch" style="background-color:white">
 
