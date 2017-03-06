@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 05, 2017 at 08:15 PM
+-- Generation Time: Mar 06, 2017 at 06:18 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -121,7 +121,6 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
-(33, 24, 'hjgjhghjgjh', '2017-03-02 15:16:00'),
 (34, 24, 'hello max', '2017-03-02 15:16:56'),
 (35, 24, 'DASDFAFDA', '2017-03-04 17:30:55');
 
@@ -156,7 +155,7 @@ CREATE TABLE `users` (
   `User_id` int(11) NOT NULL,
   `First_name` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `Last_name` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `Username` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `Username` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `dob` date NOT NULL,
   `Password` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `Phone` varchar(20) NOT NULL,
@@ -175,7 +174,8 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (24, 'Darren', 'Lahr', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, 0, '2017-02-24 18:05:37'),
 (25, 'Bob', 'Marin', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-03 23:59:48'),
 (26, 'Rod', 'Smith', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-04 23:14:58'),
-(27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-04 00:00:09');
+(27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, 0, '2017-03-04 00:00:09'),
+(30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, 4, '2017-03-06 00:29:09');
 
 --
 -- Indexes for dumped tables
@@ -250,7 +250,7 @@ ALTER TABLE `privacysettings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
