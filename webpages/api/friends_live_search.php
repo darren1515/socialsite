@@ -83,11 +83,17 @@ if(isset($_POST['friend_search'])){
 
     }
 
+    // Edited so that my own profile will not appear in the live search. 07/03/17
+    // To the array push the current user sessionID
+
+    array_push($arrayIDs,$_SESSION['User_id']);
     // If there is free space print then show non friends
 
     if($amountOfFreeSpace>0){
         // We now need to see if there are any users who are not friends. First select all the users that are not friends then filter based on the user
         // inputed text
+
+
         $sql  = "SELECT User_id,First_name,Last_name FROM users WHERE User_id NOT IN ( '" . implode($arrayIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
 
         $result = mysqli_query($con,$sql);
