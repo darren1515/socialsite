@@ -88,9 +88,32 @@
 <div id="uploader"></div>
 <script>
     // Some options to pass to the uploader are discussed on the next page
-    var uploader = new qq.FineUploader({
-        element: document.getElementById("uploader")
-    })
+    var manualUploader = new qq.FineUploader({
+        element: document.getElementById("uploader"),
+        request: {
+            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+        },
+        deleteFile: {
+            enabled: true,
+            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+        },
+        chunking: {
+            enabled: true,
+            concurrent: {
+                enabled: true
+            },
+            success: {
+                endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php?done"
+            }
+        },
+        resume: {
+            enabled: true
+        },
+        retry: {
+            enableAuto: true,
+            showButton: true
+        }
+    });
 </script>
 </body>
 </html>
