@@ -107,25 +107,25 @@ $pageTitle = 'profileSettings';
                   <h4>Select privacy level:</h4>
                   <div class="radio">
                       <label>
-                          <input type="radio" name="optionsPrivacy" id="privacyOption1" value="1" <?php echo (($userSettings['privacysettings_fk']=='1') ? 'checked':''); ?>>
+                          <input type="radio" name="optionsPrivacy" id="privacyOption1" value="1" <?php echo (($userSettings['privacysetting']=='1') ? 'checked':''); ?>>
                           <strong>Private</strong> - Your blog and photos will only be viewable by you and you alone
                       </label>
                   </div>
                   <div class="radio">
                       <label>
-                          <input type="radio" name="optionsPrivacy" id="privacyOption2" value="2" <?php echo (($userSettings['privacysettings_fk']=='2') ? 'checked':''); ?>>
+                          <input type="radio" name="optionsPrivacy" id="privacyOption2" value="2" <?php echo (($userSettings['privacysetting']=='2') ? 'checked':''); ?>>
                           <strong>Friends</strong> - Your blog and photos will by viewable by you and your friends
                       </label>
                   </div>
                   <div class="radio">
                       <label>
-                          <input type="radio" name="optionsPrivacy" id="privacyOption3" value="3" <?php echo (($userSettings['privacysettings_fk']=='3') ? 'checked':''); ?>>
+                          <input type="radio" name="optionsPrivacy" id="privacyOption3" value="3" <?php echo (($userSettings['privacysetting']=='3') ? 'checked':''); ?>>
                           <strong>Friends of Friends</strong> - Your blog and photos will by viewable by you, your friends and their friends
                       </label>
                   </div>
                   <div class="radio">
                       <label>
-                          <input type="radio" name="optionsPrivacy" id="privacyOption4" value="4" <?php echo (($userSettings['privacysettings_fk']=='4') ? 'checked':''); ?>>
+                          <input type="radio" name="optionsPrivacy" id="privacyOption4" value="4" <?php echo (($userSettings['privacysetting']=='4') ? 'checked':''); ?>>
                           <strong>All</strong> - Your blog and photos will by viewable by all
                       </label>
                   </div>

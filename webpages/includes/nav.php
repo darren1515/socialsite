@@ -54,13 +54,15 @@
                 </li>
 
                 <li><a href="../index.php" class="logOutLink">Logout</a></li>
+
+
                     <!-- This will be used for searching for friends -->
-                <div class="col-sm-3 col-md-3 pull-right" id="friendSearchContainer">
+                <div class="col-md-3 pull-right" id="friendSearchContainer">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
-                            <input type="text" size="75" class="form-control" id="friendSearchBox" placeholder="Search For Friends" autocomplete="off">
+                            <input type="text" size="200" class="form-control" id="friendSearchBox" placeholder="Search For Friends" autocomplete="off">
                         </div>
-                        <div id="livesearch" style="background-color:white">
+                        <div id="livesearch" style="background-color:white;width:400px;margin-left:-100px;">
 
                         </div>
 

@@ -472,7 +472,7 @@ function pullUserSettings(){
 
     $con = connectToDatabase();
 
-    $sql = "SELECT First_name, Last_name, Username, Phone, Gender, privacysettings_fk FROM users WHERE User_id = " . $_SESSION['User_id'];
+    $sql = "SELECT First_name, Last_name, Username, Phone, Gender, privacysetting FROM users WHERE User_id = " . $_SESSION['User_id'];
 
     $result = mysqli_query($con,$sql);
 
