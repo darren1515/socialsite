@@ -329,6 +329,8 @@ $pageTitle = 'profileSettings';
                   onComplete:function(id,name,responsejson){
 
 
+                      // Once the uplaoad has been completed we need to store the location of the file on to the database
+
                       var imageName = name;
                       var uuid = responsejson['uuid'];
 
@@ -346,9 +348,9 @@ $pageTitle = 'profileSettings';
                           type: "POST",
                           success:function() {
 
-                              // returnedData will be equal to what was echoed in friends_live_search.php
 
-                              // Put the returnedData into the livesearch div.
+                              // Once the profile pic has been uploaded we need to update the picture in the top right of
+                              // profile settings.
                               $("#profilepic").html('<img width="100" height="100" class="img-rounded" ' + 'src="../vendor/fineuploader/php-traditional-server/files/' + imageLoc + '">');
 
                           }
@@ -359,6 +361,8 @@ $pageTitle = 'profileSettings';
                   },
                   onDeleteComplete: function(){
 
+                      // When we delete the file from the server we also need to remove
+                      // the file path which is stored in the database in the users table.
 
                       $.ajax({
                           url:"api/set_update_profile_image.php",
@@ -366,9 +370,7 @@ $pageTitle = 'profileSettings';
                           type: "POST",
                           success:function() {
 
-                              // returnedData will be equal to what was echoed in friends_live_search.php
-
-                              // Put the returnedData into the livesearch div.
+                              // Change the profile image to a blank pic.
                               $("#profilepic").html('<img width="100" height="100" class="img-rounded"/>');
 
                           }
@@ -391,6 +393,8 @@ $pageTitle = 'profileSettings';
               type: "POST",
               success: function (data) {
                   jsonPhoto = JSON.parse(data);
+                  // Grab first object
+                  jsonPhoto = jsonPhoto[0];
                   if (jsonPhoto['name']) {
 
                       // we need to decode json data
@@ -399,7 +403,7 @@ $pageTitle = 'profileSettings';
 
 
 
-                        console.log(jsonPhoto);
+                        //console.log(jsonPhoto);
 
 
 
@@ -408,7 +412,7 @@ $pageTitle = 'profileSettings';
 
 
 
-                        jsonPhoto = jsonPhoto[0];
+
 
 
                       $("#profilepic").html('<img width="100" height="100" class="img-rounded" ' + 'src="../vendor/fineuploader/php-traditional-server/files/' + jsonPhoto['uuid'] + '/' + jsonPhoto['name'] + '">');
