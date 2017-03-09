@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88858ff3-4f1f-4adf-bf6e-bc77ac86ff03" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpages/api/send_friend_request.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/api/friends_live_search.php" afterPath="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/includes/nav.php" afterPath="$PROJECT_DIR$/webpages/includes/nav.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/index.php" afterPath="$PROJECT_DIR$/webpages/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -77,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="friends_live_search.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="friends_live_search.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpages/api/friends_live_search.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+            <state relative-caret-position="354">
+              <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding>
                 <marker date="1489102527000" expanded="true" signature="2236:2496" ph="SELECT Frien... User_id2" />
                 <marker date="1489102527000" expanded="true" signature="2236:2689" ph="SELECT Frien... User_id2" />
@@ -125,6 +123,18 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webpages/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+              <folding>
+                <marker date="1489102961000" expanded="true" signature="1893:12182" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -156,6 +166,7 @@
       <find>getunique</find>
       <find>getUnique</find>
       <find>drop fil</find>
+      <find>new</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,7 +191,6 @@
         <option value="$PROJECT_DIR$/webpages/api/update_post.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/webpages/api/update_account_settings.php" />
-        <option value="$PROJECT_DIR$/webpages/index.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/test.php" />
         <option value="$PROJECT_DIR$/webpages/api/set_update_profile_image.php" />
@@ -189,6 +199,7 @@
         <option value="$PROJECT_DIR$/webpages/api/send_friend_request.php" />
         <option value="$PROJECT_DIR$/webpages/includes/nav.php" />
         <option value="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
+        <option value="$PROJECT_DIR$/webpages/index.php" />
       </list>
     </option>
   </component>
@@ -458,12 +469,12 @@
       <workItem from="1488994996974" duration="16063000" />
       <workItem from="1489065306172" duration="1062000" />
       <workItem from="1489099031959" duration="71000" />
-      <workItem from="1489099135715" duration="3380000" />
+      <workItem from="1489099135715" duration="3920000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195671000" />
+    <option name="totallyTimeSpent" value="196211000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -655,17 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#92#0#PHP" expanded="false" />
-            <marker date="1488906991000" expanded="true" signature="1893:12094" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -849,8 +849,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webpages/api/friends_live_search.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+        <state relative-caret-position="354">
+          <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
           <folding>
             <marker date="1489102527000" expanded="true" signature="2236:2496" ph="SELECT Frien... User_id2" />
             <marker date="1489102527000" expanded="true" signature="2236:2689" ph="SELECT Frien... User_id2" />
@@ -889,6 +889,16 @@
             <marker date="1489102527000" expanded="true" signature="8782:8808" ph="..." />
             <marker date="1489102527000" expanded="true" signature="9199:9207" ph="..." />
             <marker date="1489102527000" expanded="true" signature="9235:9257" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+          <folding>
+            <marker date="1489102961000" expanded="true" signature="1893:12182" ph="..." />
           </folding>
         </state>
       </provider>

@@ -237,7 +237,7 @@ $pageTitle = 'index';
                             <div className="row">
 
                                 <button type="button" onClick={this.addNewPost} className="btn btn-primary">New Post <span className="glyphicon glyphicon-plus"></span></button>
-
+                                <button className="btn btn-primary">Add a photo</button>
                             </div>
                             <div className="row">
                                 {/*Now need to loop over each post, and create a corresponding blog post component*/}
