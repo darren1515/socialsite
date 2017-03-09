@@ -157,6 +157,8 @@ if(isset($_POST['friend_search'])){
 
             } else {
 
+
+
                 // They should not be able to view their profile however the add button should be there
                 // We need to print out both the first name, last name and a button.
                 echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right\">Add</button></td></tr>";

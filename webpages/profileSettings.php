@@ -79,6 +79,10 @@ $pageTitle = 'profileSettings';
               font-size: 80%;
           }
       </style>
+  <!-- Include fine-uploader files -->
+  <link href="../fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+  <script src="../fine-uploader/fine-uploader.min.js"></script>
+
   </head>
 
   <body>
@@ -91,9 +95,103 @@ $pageTitle = 'profileSettings';
 
     <!-- Begin page content -->
     <div class="container" style="margin-top:50px">
-      <div class="page-header">
-        <h1>Make changes to your account settings</h1>
-      </div>
+        <div class="row">
+           <div class="col-md-8">
+              <div class="page-header">
+                <h1>Make changes to your account settings</h1>
+
+              </div>
+           </div>
+            <div id="profilepic" class="col-md-4">
+
+            </div>
+
+        </div>
+
+
+
+
+      <!-- INSERT THE profile upload section-->
+
+        <script type="text/template" id="qq-template">
+            <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop profile picture here">
+                <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                    <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+                </div>
+                <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                    <span class="qq-upload-drop-area-text-selector"></span>
+                </div>
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>Upload a file</div>
+                </div>
+                <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+                <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                    <li>
+                        <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                        <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                        </div>
+                        <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                        <div class="qq-thumbnail-wrapper">
+                            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                        </div>
+                        <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                        <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                            <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                            Retry
+                        </button>
+
+                        <div class="qq-file-info">
+                            <div class="qq-file-name">
+                                <span class="qq-upload-file-selector qq-upload-file"></span>
+                                <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                            </div>
+                            <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                            <span class="qq-upload-size-selector qq-upload-size"></span>
+                            <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                                <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                            </button>
+                            <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                                <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                            </button>
+                            <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                                <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+
+                <dialog class="qq-alert-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">Close</button>
+                    </div>
+                </dialog>
+
+                <dialog class="qq-confirm-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">No</button>
+                        <button type="button" class="qq-ok-button-selector">Yes</button>
+                    </div>
+                </dialog>
+
+                <dialog class="qq-prompt-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <input type="text">
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                        <button type="button" class="qq-ok-button-selector">Ok</button>
+                    </div>
+                </dialog>
+            </div>
+        </script>
+
+
+
 
       <!-- Place a form that will allow the user to set privacy settings, put phone number etc -->
       <section class="row">
@@ -102,6 +200,7 @@ $pageTitle = 'profileSettings';
               <div id="updateText">
 
               </div>
+              <div id="uploader"></div>
           <form method="POST">
               <div class="form-group">
                   <h4>Select privacy level:</h4>
@@ -179,6 +278,173 @@ $pageTitle = 'profileSettings';
 <!--    <script src="../../dist/js/bootstrap.min.js"></script>-->
 <!--    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+
+
+        // Some options to pass to the uploader are discussed on the next page
+
+
+
+  <script>
+      var jsonPhoto = {};
+
+      $(document).ready(function() {
+
+          // When the page loads grab the latest profile picture
+
+          var manualUploader = new qq.FineUploader({
+              element: document.getElementById("uploader"),
+              request: {
+                  endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+              },
+              session:{
+                  endpoint: "/socialsite/webpages/api/set_update_profile_image.php"
+              },
+              deleteFile: {
+                  enabled: true,
+                  endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+              },
+              chunking: {
+                  enabled: true,
+                  concurrent: {
+                      enabled: true
+                  },
+                  success: {
+                      endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php?done"
+                  }
+              },
+              debug:true,
+              resume: {
+                  enabled: true
+              },
+              retry: {
+                  enableAuto: true,
+                  showButton: true
+              },
+              validation: {
+                  allowedExtensions: ['jpeg', 'jpg', 'png'],
+                  itemLimit: 1,
+                  sizeLimit: 10 * 1000000 // 10mb = 10 * 1024 bytes
+              },
+              callbacks: {
+                  onComplete:function(id,name,responsejson){
+
+
+                      var imageName = name;
+                      var uuid = responsejson['uuid'];
+
+                      var imageLoc = uuid + "/" + imageName;
+
+                      console.log(imageName);
+                      console.log(uuid);
+
+
+                      // Need to send the location to the setupdateprofile script
+
+                      $.ajax({
+                          url:"api/set_update_profile_image.php",
+                          data:{imageLoc: imageLoc},
+                          type: "POST",
+                          success:function() {
+
+                              // returnedData will be equal to what was echoed in friends_live_search.php
+
+                              // Put the returnedData into the livesearch div.
+                              $("#profilepic").html('<img width="100" height="100" class="img-rounded" ' + 'src="../vendor/fineuploader/php-traditional-server/files/' + imageLoc + '">');
+
+                          }
+
+
+
+                      });
+                  },
+                  onDeleteComplete: function(){
+
+
+                      $.ajax({
+                          url:"api/set_update_profile_image.php",
+                          data:{removeprofilepic: true},
+                          type: "POST",
+                          success:function() {
+
+                              // returnedData will be equal to what was echoed in friends_live_search.php
+
+                              // Put the returnedData into the livesearch div.
+                              $("#profilepic").html('<img width="100" height="100" class="img-rounded"/>');
+
+                          }
+
+
+
+                      });
+
+                  }
+
+
+              }
+          });
+
+
+
+          $.ajax({
+              url: "api/set_update_profile_image.php",
+              data: {getprofilepic: true},
+              type: "POST",
+              success: function (data) {
+                  jsonPhoto = JSON.parse(data);
+                  if (jsonPhoto['name']) {
+
+                      // we need to decode json data
+
+
+
+
+
+                        console.log(jsonPhoto);
+
+
+
+
+
+
+
+
+                        jsonPhoto = jsonPhoto[0];
+
+
+                      $("#profilepic").html('<img width="100" height="100" class="img-rounded" ' + 'src="../vendor/fineuploader/php-traditional-server/files/' + jsonPhoto['uuid'] + '/' + jsonPhoto['name'] + '">');
+
+
+
+
+                  } else {
+
+                      // They haven't got a photo put default pic
+                      $("#profilepic").html('<img width="100" height="100" class="img-rounded"/>');
+
+                  }
+
+
+              }
+
+
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      });
+
+
+  </script>
 
   </body>
 

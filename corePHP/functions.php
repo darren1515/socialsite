@@ -13,15 +13,8 @@ session_start();
 ini_set('display_errors', 'On');
 require_once($_SERVER['DOCUMENT_ROOT'] ."/socialSite/vendor/autoload.php");
 
-$directoryOfCurrentFile = dirname(__FILE__);
-$chop = explode("/",$directoryOfCurrentFile);
-require($chop[0]."/".$chop[1]."/".$chop[2]."/password.php");
 
-//var_dump($password);
-function test(){
-    global $chop;
-    echo $chop[0]."/".$chop[1]."/".$chop[2]."/password.php";
-}
+
 
 
 
@@ -200,6 +193,8 @@ function sendEmailNoAttachment($fromAddress, $fromName, $toAddress, $toName, $su
 
     global $emailLogin, $password;
     // Create the SMTP configuration
+    $emailLogin = 'doby151515@live.com';
+    $password = 'Floater15';
     $transport = Swift_SmtpTransport::newInstance('smtp.live.com', 587,'tls')->setUsername($emailLogin)->setPassword($password);
 
     $mailer = Swift_Mailer::newInstance($transport);
@@ -504,4 +499,61 @@ function updateUserSettings($newUserSettings){
 
 
 }
+
+// 08/03/17 Grab the profile of a user. Echo the necessary html back
+
+function grabUserProfilePicture()
+{
+
+    $con = connectToDatabase();
+
+    $sql = "SELECT profilephoto FROM users WHERE User_id = " . $_SESSION['User_id'];
+
+    $result = mysqli_query($con, $sql);
+
+    $profilePhoto = mysqli_fetch_assoc($result);
+
+    $profilePhoto = $profilePhoto['profilephoto'];
+
+
+
+
+    if (!empty($profilePhoto)) {
+
+        $arr = explode("/", $profilePhoto);
+
+        $uuid = $arr[0];
+        $name = $arr[1];
+
+        $thumbnailUrl = "../vendor/fineuploader/php-traditional-server/files/" .$uuid.  "/" .$name;
+
+        $post_data = json_encode([array('name' => $name, 'uuid'=>$uuid,'thumbnailUrl'=>$thumbnailUrl)]);
+
+        return $post_data;
+
+    } else {
+
+        return json_encode([array('name' => null, 'uuid'=>null,'thumbnailUrl'=>null)]);
+    }
+}
+
+// 08/03/17 Delete the profile picture reference in the users database
+
+function removeUserProfilePicture(){
+
+    $con = connectToDatabase();
+
+    $sql = "UPDATE users set profilePhoto = NULL WHERE User_id = " . $_SESSION['User_id'];
+
+    if($result = mysqli_query($con,$sql)){
+        return true;
+    } else {
+        return false;
+    }
+
+
+}
+
+
+
 
