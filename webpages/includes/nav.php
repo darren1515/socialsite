@@ -117,6 +117,33 @@
 
     });
 
+    // Code to get add friends button working
+    // Need to bind it to a static ancestor
+
+    $("#livesearch").on('click','.addfriend',function(){
+
+        // We first need to grab the userID
+
+        var friendID = $(this).attr('rel');
+
+        // We then need to update the database
+
+        $.post("api/send_friend_request.php", {friendID:friendID}, function(){
+
+            //Once complete need to change the button to say friend request sent.
+            // We want $this to refer to the button.
+
+            $(this).attr('class','btn btn-default pull-right');
+            $(this).html("Request Sent");
+        }.bind(this));
+
+
+
+        console.log($(this).attr('rel'));
+
+        console.log('add a friend');
+    });
+
 
 
 

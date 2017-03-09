@@ -56,8 +56,10 @@ if(isset($_POST['friend_search'])){
     // We first look for friends, need to also pull the privacysettings.
     // If the friend is set to private i.e 1 show no buttons else show a button with view profile.
 
-    $sql  = "SELECT Friend_ID, First_name, Last_name, privacysetting FROM (SELECT User_id2 AS Friend_ID, First_name, Last_name,privacysetting FROM friends INNER JOIN users ON friends.User_id2=users.User_id WHERE friends.User_id1 = " .
- $userID . " AND friendStatus = 1 UNION SELECT User_id1 AS Friend_ID, First_name, Last_name,privacysetting FROM friends INNER JOIN users ON friends.User_id1=users.User_id WHERE friends.User_id2 = " . $userID . " AND friendStatus = 1) temp WHERE CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$upperLimit;
+    // 09/03/16 Also pull in the friendStatus
+
+    $sql  = "SELECT Friend_ID, First_name, Last_name, privacysetting,friendStatus FROM (SELECT User_id2 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus FROM friends INNER JOIN users ON friends.User_id2=users.User_id WHERE friends.User_id1 = " .
+ $userID . " UNION SELECT User_id1 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus FROM friends INNER JOIN users ON friends.User_id1=users.User_id WHERE friends.User_id2 = " . $userID . ") temp WHERE CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$upperLimit;
 
 
 
@@ -69,7 +71,8 @@ if(isset($_POST['friend_search'])){
 
     $numberOfFriends = mysqli_num_rows($result);
     $amountOfFreeSpace = $upperLimit - $numberOfFriends;
-    $arrayIDs = [];
+    $confirmedFriendIDs = [];
+    $pendingFriendIDs = [];
 
     // Always print the table
 
@@ -84,19 +87,32 @@ if(isset($_POST['friend_search'])){
 
         while($row = mysqli_fetch_assoc($result)) {
 
-            $arrayIDs[] = $row['Friend_ID'];
-            $privacysettings = $row['privacysetting'];
+            // Keep in mind we only want to count friends.
 
-            if($privacysettings == 1){
 
-                echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
+            if($row['friendStatus']==1){
+
+                $confirmedFriendIDs[] = $row['Friend_ID'];
+                $privacysettings = $row['privacysetting'];
+
+                if($privacysettings == 1){
+
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
+
+                } else {
+
+                    // We need to print out both the first name, last name and a button.
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
+
+                }
+
 
             } else {
-
-                // We need to print out both the first name, last name and a button.
-                echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
+                $pendingFriendIDs[] = $row['Friend_ID'];
 
             }
+
+
 
 
 
@@ -104,6 +120,8 @@ if(isset($_POST['friend_search'])){
         }
 
     }
+
+
 
     // We need to grab all the mutual friends of our logged in user
 
@@ -124,7 +142,7 @@ if(isset($_POST['friend_search'])){
     // Edited so that my own profile will not appear in the live search. 07/03/17
     // To the array push the current user sessionID
 
-    array_push($arrayIDs,$_SESSION['User_id']);
+    array_push($confirmedFriendIDs,$_SESSION['User_id']);
     // If there is free space print then show non friends
 
     if($amountOfFreeSpace>0){
@@ -132,7 +150,7 @@ if(isset($_POST['friend_search'])){
         // inputed text
         // For non friends we need to pull their privacy settings.
 
-        $sql  = "SELECT User_id,First_name,Last_name, privacysetting FROM users WHERE User_id NOT IN ( '" . implode($arrayIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
+        $sql  = "SELECT User_id,First_name,Last_name, privacysetting FROM users WHERE User_id NOT IN ( '" . implode($confirmedFriendIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
 
         $result = mysqli_query($con,$sql);
         $numberOfNonFriends = mysqli_num_rows($result);
@@ -151,18 +169,37 @@ if(isset($_POST['friend_search'])){
 
             if(($row['privacysetting'] == 3 and in_array($row['User_id'],$mutualFriendsArray)) or $row['privacysetting'] == 4){
 
-                // They are not friends but they should be able to add or view their profile.
-                echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right\">Add</button></td></tr>";
+
+                // They are not friends but change add friend to request sent potentially
+
+                if(in_array($row['User_id'],$pendingFriendIDs)){
+
+                    // They are not friends but they should be able to add or view their profile.
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
+
+                } else {
+
+                    // They are not friends but they should be able to add or view their profile.
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+
+                }
+
+
+
 
 
             } else {
 
+                if(in_array($row['User_id'],$pendingFriendIDs)){
 
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
 
-                // They should not be able to view their profile however the add button should be there
-                // We need to print out both the first name, last name and a button.
-                echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right\">Add</button></td></tr>";
+                } else {
 
+                    // They should not be able to view their profile however the add button should be there
+                    // We need to print out both the first name, last name and a button.
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+                }
             }
 
 
