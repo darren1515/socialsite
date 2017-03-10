@@ -58,8 +58,8 @@ if(isset($_POST['friend_search'])){
 
     // 09/03/16 Also pull in the friendStatus
 
-    $sql  = "SELECT Friend_ID, First_name, Last_name, privacysetting,friendStatus FROM (SELECT User_id2 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus FROM friends INNER JOIN users ON friends.User_id2=users.User_id WHERE friends.User_id1 = " .
- $userID . " UNION SELECT User_id1 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus FROM friends INNER JOIN users ON friends.User_id1=users.User_id WHERE friends.User_id2 = " . $userID . ") temp WHERE CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$upperLimit;
+    $sql  = "SELECT Friend_ID, First_name, Last_name, privacysetting,friendStatus,profilephoto FROM (SELECT User_id2 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus,profilephoto FROM friends INNER JOIN users ON friends.User_id2=users.User_id WHERE friends.User_id1 = " .
+ $userID . " UNION SELECT User_id1 AS Friend_ID, First_name, Last_name,privacysetting,friendStatus,profilephoto FROM friends INNER JOIN users ON friends.User_id1=users.User_id WHERE friends.User_id2 = " . $userID . ") temp WHERE CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$upperLimit;
 
 
 
@@ -94,17 +94,28 @@ if(isset($_POST['friend_search'])){
 
                 $confirmedFriendIDs[] = $row['Friend_ID'];
                 $privacysettings = $row['privacysetting'];
+                $profilephoto = $row['profilephoto'];
+
+                // Is there are photo
+
+                if($profilephoto){
+                    $imagehtml = "<img width='40' height='40' src='../vendor/fineuploader/php-traditional-server/files/$profilephoto' style='margin-right:10px;' class='img-rounded'>";
+                } else {
+                    $imagehtml = "<img width='40' height='40' style='margin-right:10px;' class='img-rounded'>";
+                }
 
                 if($privacysettings == 1){
 
                     // Images ../vendor/fineuploader/php-traditional-server/files/' + imageLoc
 
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
+
+
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
 
                 } else {
 
                     // We need to print out both the first name, last name and a button.
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
 
                 }
 
@@ -152,7 +163,7 @@ if(isset($_POST['friend_search'])){
         // inputed text
         // For non friends we need to pull their privacy settings.
 
-        $sql  = "SELECT User_id,First_name,Last_name, privacysetting FROM users WHERE User_id NOT IN ( '" . implode($confirmedFriendIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
+        $sql  = "SELECT User_id,First_name,Last_name, privacysetting,profilephoto FROM users WHERE User_id NOT IN ( '" . implode($confirmedFriendIDs, "', '") . "' )" . " AND CONCAT(First_name, ' ', Last_name) LIKE ". "'%$friendText%' LIMIT " .$amountOfFreeSpace;
 
         $result = mysqli_query($con,$sql);
         $numberOfNonFriends = mysqli_num_rows($result);
@@ -164,6 +175,13 @@ if(isset($_POST['friend_search'])){
             die(mysqli_error($con));
         }
         while($row = mysqli_fetch_assoc($result)) {
+
+            $profilephoto = $row['profilephoto'];
+            if($profilephoto){
+                $imagehtml = "<img width='40' height='40' src='../vendor/fineuploader/php-traditional-server/files/$profilephoto' style='margin-right:10px;' class='img-rounded'>";
+            } else {
+                $imagehtml = "<img width='40' height='40' style='margin-right:10px;' class='img-rounded'>";
+            }
 
 
             // Now we need to correctly display the correct button depending on what setting the friend has.
@@ -177,12 +195,12 @@ if(isset($_POST['friend_search'])){
                 if(in_array($row['User_id'],$pendingFriendIDs)){
 
                     // They are not friends but they should be able to add or view their profile.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
 
                 } else {
 
                     // They are not friends but they should be able to add or view their profile.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
 
                 }
 
@@ -194,13 +212,13 @@ if(isset($_POST['friend_search'])){
 
                 if(in_array($row['User_id'],$pendingFriendIDs)){
 
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
 
                 } else {
 
                     // They should not be able to view their profile however the add button should be there
                     // We need to print out both the first name, last name and a button.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
                 }
             }
 
