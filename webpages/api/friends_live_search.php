@@ -97,12 +97,14 @@ if(isset($_POST['friend_search'])){
 
                 if($privacysettings == 1){
 
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
+                    // Images ../vendor/fineuploader/php-traditional-server/files/' + imageLoc
+
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
 
                 } else {
 
                     // We need to print out both the first name, last name and a button.
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button></td></tr>";
 
                 }
 
@@ -175,12 +177,12 @@ if(isset($_POST['friend_search'])){
                 if(in_array($row['User_id'],$pendingFriendIDs)){
 
                     // They are not friends but they should be able to add or view their profile.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
 
                 } else {
 
                     // They are not friends but they should be able to add or view their profile.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . "<button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</button> <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
 
                 }
 
@@ -192,13 +194,13 @@ if(isset($_POST['friend_search'])){
 
                 if(in_array($row['User_id'],$pendingFriendIDs)){
 
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-default pull-right\">Request Sent</button></td></tr>";
 
                 } else {
 
                     // They should not be able to view their profile however the add button should be there
                     // We need to print out both the first name, last name and a button.
-                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
+                    echo "<tr><td style='height:50px' rel='" . $row['User_id'] . "'><img width='40' height='40' style='margin-right:10px;' class='img-rounded'>" . $row['First_name'] . " " . $row['Last_name'] . " <button rel='" . $row['User_id'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-success pull-right addfriend\">Add</button></td></tr>";
                 }
             }
 
@@ -213,6 +215,10 @@ if(isset($_POST['friend_search'])){
     if(($numberOfFriends + $numberOfNonFriends) == 0){
         echo "<tr><td>no users found</td></tr>";
     }
+
+    // Close the connection
+
+    mysqli_close($con);
 
     // We now need to close the table
 

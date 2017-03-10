@@ -32,5 +32,8 @@ if($_POST){
     $results = $blogObject->updatePost($postID,$newText);
 //Output in json format
 
+    // Close the connection
+
+    mysqli_close($connection);
     echo $results;
 }

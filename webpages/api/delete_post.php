@@ -30,6 +30,11 @@ if($_POST){
     $results = $blogObject->deletePost($postID);
 //Output in json format
 
+    // Close the connection
+
+    mysqli_close($connection);
+
+
     echo $results;
 }
 

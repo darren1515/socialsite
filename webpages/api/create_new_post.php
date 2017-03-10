@@ -21,6 +21,8 @@ $connection = connectToDatabase();
 // Create an instance of the Blogpost class so that we
 // can use the readAll method.
 
+
+
 $blogObject = new Blogpost($connection);
 
 $blogObject->userID = $_SESSION['User_id'];

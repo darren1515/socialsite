@@ -94,7 +94,7 @@ function logMeIn() {
 
                 mysqli_close($connection);
 
-                header("Location:". "http://".$ip.":8888/socialSite/webpages/index.php");
+                header("Location:/socialSite/webpages/index.php");
 
 
 
@@ -131,11 +131,28 @@ function connectToDatabase(){
 
     if(!defined('SERVERNAME')){
 
-    DEFINE("USERNAME", "root");
+
+
+        DEFINE("USERNAME", "root");
     DEFINE("SERVERPASSWORD", "7AEA61437E");
     DEFINE('SERVERNAME', 'localhost');
     DEFINE("DATABASENAME", "4network");
     DEFINE("DSN",'mysql:host=' .SERVERNAME. ';dbname='.DATABASENAME);
+
+
+
+
+
+    /*
+
+    DEFINE("USERNAME", "bf54438d8bfa8c");
+    DEFINE("SERVERPASSWORD", "d5333f74");
+    DEFINE('SERVERNAME', 'eu-cdbr-azure-west-d.cloudapp.net');
+    DEFINE("DATABASENAME", "4network");
+    DEFINE("DSN",'mysql:host=' .SERVERNAME. ';dbname='.DATABASENAME);
+
+    */
+
     }
     $con = mysqli_connect(SERVERNAME,USERNAME,SERVERPASSWORD,DATABASENAME);
 
@@ -492,13 +509,26 @@ function updateUserSettings($newUserSettings){
     $privacy = filter_var(trim($newUserSettings['optionsPrivacy']), FILTER_VALIDATE_INT);
     $phone = filter_var(trim($newUserSettings['Phone']), FILTER_SANITIZE_STRING);
 
-    $sql = "UPDATE users SET First_name='$firstName',Last_name='$lastName',privacysettings_fk=$privacy,Phone='$phone' WHERE User_id = " . $_SESSION['User_id'];
+    $sql = "UPDATE users SET First_name='$firstName',Last_name='$lastName',privacysetting=$privacy,Phone='$phone' WHERE User_id = " . $_SESSION['User_id'];
+
+
 
     mysqli_query($con,$sql);
+    mysqli_close($con);
 
+    return $sql;
 
 
 }
+
+    // Now close the connection, we only have 4 connections to be allowed to be open at any given time
+
+
+
+
+
+
+
 
 // 08/03/17 Grab the profile of a user. Echo the necessary html back
 
@@ -515,6 +545,9 @@ function grabUserProfilePicture()
 
     $profilePhoto = $profilePhoto['profilephoto'];
 
+    // Close the connection to the database
+
+    mysqli_close($con);
 
 
 
@@ -546,6 +579,12 @@ function removeUserProfilePicture(){
     $sql = "UPDATE users set profilePhoto = NULL WHERE User_id = " . $_SESSION['User_id'];
 
     if($result = mysqli_query($con,$sql)){
+
+        // Close the connection to the database
+
+        mysqli_close($con);
+
+
         return true;
     } else {
         return false;

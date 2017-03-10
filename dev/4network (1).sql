@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 09, 2017 at 11:36 PM
+-- Generation Time: Mar 10, 2017 at 07:21 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -31,7 +31,7 @@ CREATE TABLE `chat` (
   `Group_ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
   `Message` mediumtext NOT NULL,
-  `Send_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+  `Send_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -68,6 +68,7 @@ CREATE TABLE `friends` (
 INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
 (24, 27, 1, '2017-03-04 16:41:00'),
 (24, 28, 1, '2017-03-04 16:41:43'),
+(24, 30, 0, '2017-03-09 23:34:56'),
 (25, 24, 1, '2017-03-04 16:41:00'),
 (27, 26, 1, '2017-03-08 15:12:06'),
 (30, 26, 1, '2017-03-08 15:12:06');
@@ -115,7 +116,7 @@ CREATE TABLE `photos` (
 CREATE TABLE `posts` (
   `postID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
-  `message` mediumtext NOT NULL,
+  `message` mediumtext,
   `latestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -126,9 +127,10 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
 (34, 24, 'hello max', '2017-03-02 15:16:56'),
 (35, 24, 'DASDFAFDA', '2017-03-04 17:30:55'),
-(36, 31, 'test', '2017-03-09 13:26:06'),
 (37, 30, 'hello chanya how are you', '2017-03-09 19:03:33'),
-(38, 30, '', '2017-03-09 20:03:41');
+(39, 31, 'dsafsad', '2017-03-10 15:26:52'),
+(40, 31, 'hasdfasdf', '2017-03-10 15:26:56'),
+(41, 31, 'asdfasd', '2017-03-10 15:32:52');
 
 -- --------------------------------------------------------
 
@@ -162,7 +164,7 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (26, 'Rod', 'Smith', '', '0000-00-00', '', '', '', '', 0, '4', NULL, '2017-03-08 15:15:01'),
 (27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, '3', NULL, '2017-03-08 15:10:18'),
 (30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-09 19:04:09'),
-(31, 'Wang', 'Chi', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '2', NULL, '2017-03-09 13:18:38');
+(31, 'Wang', 'Chi', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '2', NULL, '2017-03-10 15:26:44');
 
 -- --------------------------------------------------------
 
@@ -267,7 +269,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `users`
 --

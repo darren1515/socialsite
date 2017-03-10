@@ -30,4 +30,8 @@ $results = $blogObject->readAll();
 
 //Output in json format
 
+// Close the connection
+
+mysqli_close($connection);
+
 echo $results;

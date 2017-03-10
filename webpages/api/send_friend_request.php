@@ -23,9 +23,16 @@ if($_POST['friendID']){
 
     $userID = $_SESSION['User_id'];
 
+
+    // In User_id2 is the person who wants to be friends with User_id1
+
     $sql = "INSERT INTO friends (User_id1,User_id2) VALUES ($friendID,$userID)";
 
     mysqli_query($con,$sql);
+
+    // Close the connection
+
+    mysqli_close($con);
 
 
 

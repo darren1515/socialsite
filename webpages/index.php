@@ -16,7 +16,7 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
 if(!is_logged_in()){
     $ip = gethostbyname(gethostname());
 
-    header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=4" ."&alertMessage=You need to log in before you are able to view this page");
+    header("Location:/socialSite/index.php?alertType=4" ."&alertMessage=You need to log in before you are able to view this page");
     exit();
 
 }
@@ -143,6 +143,8 @@ $pageTitle = 'index';
                     //newpost is a javascript object with postID and latestTime
 
                     newpost = JSON.parse(newpost);
+
+                    console.log(newpost);
 
                     //Make a copy what is currently in the posts state
                     var arr = this.state.posts;

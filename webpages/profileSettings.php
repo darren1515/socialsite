@@ -14,18 +14,20 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
 // We now need to kick the user out to the homepage if they have not logged in
 
 if(!is_logged_in()){
-    $ip = gethostbyname(gethostname());
 
-    header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=4" ."&alertMessage=You need to log in before you are able to view this page");
+
+    header("Location:/socialSite/index.php?alertType=4" ."&alertMessage=You need to log in before you are able to view this page");
     exit();
 
 }
 // 06/03/17 Below will update the database when the user clicks update profile
-if($_POST){
-    updateUserSettings($_POST);
+if(isset($_POST['updateSettings'])){
+    $test = updateUserSettings($_POST);
 }
 
+
 $userSettings = pullUserSettings();
+
 
 $pageTitle = 'profileSettings';
 
@@ -99,6 +101,7 @@ $pageTitle = 'profileSettings';
            <div class="col-md-8">
               <div class="page-header">
                 <h1>Make changes to your account settings</h1>
+
 
               </div>
            </div>
@@ -201,7 +204,7 @@ $pageTitle = 'profileSettings';
 
               </div>
               <div id="uploader"></div>
-          <form method="POST">
+          <form method="POST" name="updateSettings">
               <div class="form-group">
                   <h4>Select privacy level:</h4>
                   <div class="radio">
@@ -251,14 +254,15 @@ $pageTitle = 'profileSettings';
                   <label for="telNumber">Phone Number:</label>
                   <input type="number" class="form-control" id="telNumber" name="Phone" placeholder="02077273101" value="<?php echo $userSettings['Phone'];?>">
               </div>
-              <button type="submit" class="btn btn-success">Update profile</button>
+              <button type="submit" class="btn btn-success" name="updateSettings">Update profile</button>
           </form>
           </div>
       </section>
 
 
 
-    <?php var_dump($_POST);?>
+
+
 
 
     </div>
@@ -280,7 +284,7 @@ $pageTitle = 'profileSettings';
 <!--    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
 
 
-        // Some options to pass to the uploader are discussed on the next page
+
 
 
 

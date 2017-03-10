@@ -28,6 +28,9 @@ if(isset($_POST['imageLoc'])){
 
     $result = mysqli_query($con,$sql);
 
+    // Close the connection
+
+    mysqli_close($con);
 
 }
 
