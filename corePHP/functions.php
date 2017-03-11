@@ -383,11 +383,11 @@ if(isset($_POST['signUp'])){
                // 05/03/17 Alter the below queries to include $privacyOption
 
                if(empty($telNumber)){
-                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Gender, password, activationToken, privacysettings_fk) VALUES ";
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Gender, password, activationToken, privacysetting) VALUES ";
                    $query .= "('$firstName','$lastName','$username1','$dob', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                } else {
                    // The phone number was entered
-                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken, privacysettings_fk) VALUES ";
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken, privacysettings) VALUES ";
                    $query .= "('$firstName','$lastName','$username1','$dob', '$telNumber', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                }
 

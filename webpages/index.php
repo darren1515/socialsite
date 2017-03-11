@@ -81,6 +81,44 @@ $pageTitle = 'index';
 
 
       </style>
+
+
+      <style>
+          div.gallery {
+              border: 1px solid #ccc;
+          }
+
+          div.gallery:hover {
+              border: 1px solid #777;
+          }
+
+          div.gallery img {
+              width: 100%;
+              height: auto;
+
+          }
+
+
+
+          * {
+              box-sizing: border-box;
+          }
+
+          .responsive {
+              padding: 0 6px;
+              float: left;
+              width: 24.99999%;
+              margin-bottom: 10px;
+          }
+
+
+
+          .clearfix:after {
+              content: "";
+              display: table;
+              clear: both;
+          }
+      </style>
   </head>
 
   <body>
@@ -384,7 +422,7 @@ $pageTitle = 'index';
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-4">
                 <p class="lead">Use this page to manage your blog. You can create, edit, update and delete your posts below</p>
 
 
@@ -393,7 +431,89 @@ $pageTitle = 'index';
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+
+            <!-- Insert the photos  -->
+            <div class="col-md-4">
+
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_fjords.jpg">
+                            <img src="https://www.w3schools.com/css/img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_forest.jpg">
+                            <img src="https://www.w3schools.com/css/img_forest.jpg" alt="Forest" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_lights.jpg">
+                            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Northern Lights" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_mountains.jpg">
+                            <img src="https://www.w3schools.com/css/img_mountains.jpg" alt="Mountains" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_fjords.jpg">
+                            <img src="https://www.w3schools.com/css/img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_forest.jpg">
+                            <img src="https://www.w3schools.com/css/img_forest.jpg" alt="Forest" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_lights.jpg">
+                            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Northern Lights" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="responsive">
+                    <div class="gallery">
+                        <a target="_blank" href="img_mountains.jpg">
+                            <img src="https://www.w3schools.com/css/img_mountains.jpg" alt="Mountains" width="600" height="400">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+            </div>
+
+
+
+
+
+
+            <div class="col-md-6 col-md-offset-4">
                 <!-- This element will render the react component/part of the website -->
                 <div id="blogreact"></div>
 
