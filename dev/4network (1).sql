@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 10, 2017 at 07:21 PM
+-- Generation Time: Mar 11, 2017 at 03:31 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -127,7 +127,7 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
 (34, 24, 'hello max', '2017-03-02 15:16:56'),
 (35, 24, 'DASDFAFDA', '2017-03-04 17:30:55'),
-(37, 30, 'hello chanya how are you', '2017-03-09 19:03:33'),
+(37, 30, 'hello chw are you', '2017-03-10 22:20:14'),
 (39, 31, 'dsafsad', '2017-03-10 15:26:52'),
 (40, 31, 'hasdfasdf', '2017-03-10 15:26:56'),
 (41, 31, 'asdfasd', '2017-03-10 15:32:52');
@@ -164,7 +164,7 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (26, 'Rod', 'Smith', '', '0000-00-00', '', '', '', '', 0, '4', NULL, '2017-03-08 15:15:01'),
 (27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, '3', NULL, '2017-03-08 15:10:18'),
 (30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-09 19:04:09'),
-(31, 'Wang', 'Chi', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '2', NULL, '2017-03-10 15:26:44');
+(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', '30d4f7a7-c67f-463b-9b27-9e7233ca4541/image.jpg', '2017-03-10 22:55:53');
 
 -- --------------------------------------------------------
 
