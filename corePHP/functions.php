@@ -387,7 +387,7 @@ if(isset($_POST['signUp'])){
                    $query .= "('$firstName','$lastName','$username1','$dob', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                } else {
                    // The phone number was entered
-                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken, privacysettings) VALUES ";
+                   $query = "INSERT INTO users (First_name, Last_name, Username, dob, Phone, Gender, password, activationToken, privacysetting) VALUES ";
                    $query .= "('$firstName','$lastName','$username1','$dob', '$telNumber', '$gender', '$encrpytedPassword', '$token', $privacyOption)";
                }
 

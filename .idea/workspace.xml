@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="88858ff3-4f1f-4adf-bf6e-bc77ac86ff03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/corePHP/functions.php" afterPath="$PROJECT_DIR$/corePHP/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/index.php" afterPath="$PROJECT_DIR$/webpages/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -100,18 +98,18 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/corePHP/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="391" column="16" lean-forward="true" selection-start-line="391" selection-start-column="16" selection-end-line="391" selection-end-column="16" />
+            <state relative-caret-position="290">
+              <caret line="389" column="142" lean-forward="false" selection-start-line="389" selection-start-column="142" selection-end-line="389" selection-end-column="142" />
               <folding>
-                <marker date="1489247187000" expanded="true" signature="1216:1308" ph="SELECT * FRO... users" />
-                <marker date="1489247187000" expanded="true" signature="9947:10002" ph="SELECT User_... users" />
-                <marker date="1489247187000" expanded="true" signature="10779:10893" ph="INSERT INTO users... " />
-                <marker date="1489247187000" expanded="true" signature="11139:11261" ph="INSERT INTO users... " />
-                <marker date="1489247187000" expanded="true" signature="13897:13994" ph="SELECT First... users" />
-                <marker date="1489247187000" expanded="true" signature="14785:14903" ph="UPDATE users... " />
-                <marker date="1489247187000" expanded="true" signature="15271:15318" ph="SELECT profi... users" />
-                <marker date="1489247187000" expanded="true" signature="16191:16244" ph="UPDATE users... " />
-                <marker date="1489247187000" expanded="true" signature="16203:16244" ph="SELECT profi... users" />
+                <marker date="1489247226000" expanded="true" signature="1216:1308" ph="SELECT * FRO... users" />
+                <marker date="1489247226000" expanded="true" signature="9947:10002" ph="SELECT User_... users" />
+                <marker date="1489247226000" expanded="true" signature="10779:10893" ph="INSERT INTO users... " />
+                <marker date="1489247226000" expanded="true" signature="11139:11260" ph="INSERT INTO users... " />
+                <marker date="1489247226000" expanded="true" signature="13896:13993" ph="SELECT First... users" />
+                <marker date="1489247226000" expanded="true" signature="14784:14902" ph="UPDATE users... " />
+                <marker date="1489247226000" expanded="true" signature="15270:15317" ph="SELECT profi... users" />
+                <marker date="1489247226000" expanded="true" signature="16190:16243" ph="UPDATE users... " />
+                <marker date="1489247226000" expanded="true" signature="16202:16243" ph="SELECT profi... users" />
               </folding>
             </state>
           </provider>
@@ -459,12 +457,12 @@
       <workItem from="1489112325739" duration="445000" />
       <workItem from="1489158870370" duration="14860000" />
       <workItem from="1489241185009" duration="798000" />
-      <workItem from="1489243880371" duration="2133000" />
+      <workItem from="1489243880371" duration="2161000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216392000" />
+    <option name="totallyTimeSpent" value="216420000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -881,18 +879,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/corePHP/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="391" column="16" lean-forward="true" selection-start-line="391" selection-start-column="16" selection-end-line="391" selection-end-column="16" />
+        <state relative-caret-position="290">
+          <caret line="389" column="142" lean-forward="false" selection-start-line="389" selection-start-column="142" selection-end-line="389" selection-end-column="142" />
           <folding>
-            <marker date="1489247187000" expanded="true" signature="1216:1308" ph="SELECT * FRO... users" />
-            <marker date="1489247187000" expanded="true" signature="9947:10002" ph="SELECT User_... users" />
-            <marker date="1489247187000" expanded="true" signature="10779:10893" ph="INSERT INTO users... " />
-            <marker date="1489247187000" expanded="true" signature="11139:11261" ph="INSERT INTO users... " />
-            <marker date="1489247187000" expanded="true" signature="13897:13994" ph="SELECT First... users" />
-            <marker date="1489247187000" expanded="true" signature="14785:14903" ph="UPDATE users... " />
-            <marker date="1489247187000" expanded="true" signature="15271:15318" ph="SELECT profi... users" />
-            <marker date="1489247187000" expanded="true" signature="16191:16244" ph="UPDATE users... " />
-            <marker date="1489247187000" expanded="true" signature="16203:16244" ph="SELECT profi... users" />
+            <marker date="1489247226000" expanded="true" signature="1216:1308" ph="SELECT * FRO... users" />
+            <marker date="1489247226000" expanded="true" signature="9947:10002" ph="SELECT User_... users" />
+            <marker date="1489247226000" expanded="true" signature="10779:10893" ph="INSERT INTO users... " />
+            <marker date="1489247226000" expanded="true" signature="11139:11260" ph="INSERT INTO users... " />
+            <marker date="1489247226000" expanded="true" signature="13896:13993" ph="SELECT First... users" />
+            <marker date="1489247226000" expanded="true" signature="14784:14902" ph="UPDATE users... " />
+            <marker date="1489247226000" expanded="true" signature="15270:15317" ph="SELECT profi... users" />
+            <marker date="1489247226000" expanded="true" signature="16190:16243" ph="UPDATE users... " />
+            <marker date="1489247226000" expanded="true" signature="16202:16243" ph="SELECT profi... users" />
           </folding>
         </state>
       </provider>
