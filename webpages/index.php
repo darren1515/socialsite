@@ -107,7 +107,7 @@ $pageTitle = 'index';
           .responsive {
               padding: 0 6px;
               float: left;
-              width: 24.99999%;
+              width: 33.30%;
               margin-bottom: 10px;
           }
 
@@ -119,6 +119,47 @@ $pageTitle = 'index';
               clear: both;
           }
       </style>
+
+      <style>
+      /*This is the space for user comments*/
+
+      .thumbnail {
+          padding:0px;
+      }
+      .panel {
+          position:relative;
+      }
+      .panel>.panel-heading:after,.panel>.panel-heading:before{
+          position:absolute;
+          top:11px;left:-16px;
+          right:100%;
+          width:0;
+          height:0;
+          display:block;
+          content:" ";
+          border-color:transparent;
+          border-style:solid solid outset;
+          pointer-events:none;
+      }
+      .panel>.panel-heading:after{
+          border-width:7px;
+          border-right-color:#f7f7f7;
+          margin-top:1px;
+          margin-left:2px;
+      }
+      .panel>.panel-heading:before{
+          border-right-color:#ddd;
+          border-width:8px;
+      }
+
+
+
+
+      </style>
+
+      <!-- Include fine-uploader files -->
+      <link href="../fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
+      <script src="../fine-uploader/fine-uploader.min.js"></script>
   </head>
 
   <body>
@@ -129,6 +170,8 @@ $pageTitle = 'index';
     <!--------------------------- REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE REACT CODE  ----------------------------------------->
 
     <script type="text/babel">
+
+
 
         var blogPostStyle = {
 
@@ -145,6 +188,371 @@ $pageTitle = 'index';
             width:"100%",
             height:"100px"
         };
+
+        // Styling for each user photo
+
+        var individualPhotoStyling = {
+            width:"33.330%"
+        };
+
+        // Styling for photo container
+
+        var photocomments = {
+
+        };
+
+        // Create a component that will represent the photoContainer
+
+        var PhotoWithComments = React.createClass({
+
+
+            getInitialState: function() {
+                return {
+                    comments:[]
+                };
+            },
+
+
+            backButton: function(){
+                this.props.backButton();
+            },
+
+
+            render:function(){
+
+                return (
+
+                    <div>
+                        <div className="row">
+                            <div className="col-md-offset-2 col-md-8">
+                                <button type="button" onClick={this.backButton} className="btn btn-primary pull-left" style={{"marginBottom":"10px"}}>Back</button>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Chess_Large.JPG" className="img-rounded img-responsive" height="200" />
+                            </div>
+                        </div>
+                        <div className="row" style={{"width":"100%","marginTop":"30px"}}>
+                            <div className="col-md-2">
+                                <div className="thumbnail">
+                                    <img className="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                                </div>
+                            </div>
+
+                            <div className="col-md-10">
+                                <div className="panel panel-default">
+                                    <div className="panel-heading">
+                                        <strong>Darren Lahr</strong> <span className="text-muted">commented 5 days ago</span>
+                                    </div>
+                                    <div className="panel-body">
+                                        Great Photo
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                );
+
+            }
+
+        });
+
+
+
+        var PhotoContainer = React.createClass({
+
+            // There will be 3 views for this component, Photos view (1) default, manage(2) and Comments (3)
+            // lastPhotoID will be used to store the photo the user clicks on and wants to see comments for.
+
+
+            getInitialState: function() {
+                return {
+                    mode: 1,
+                    photos:[],
+                    lastPhotoID: 0
+                };
+            },
+
+
+            // When Manage button is clicked in Photos view go to the manage view (2)
+
+            manageButton: function(){
+
+                this.setState({mode:2});
+            },
+
+            // When the save button is clicked within the manage(2) view go back to photos view (1)
+
+            saveChangesButton: function (){
+                this.setState({mode:1});
+            },
+
+            // This function will be passed through into PhotoWithComments and allow them to go back to all photos
+
+            backPhotoWithComments: function(){
+                this.setState({mode:1});
+            },
+
+            eachPhoto:function(photoObject,index)
+
+            {
+
+                return(<img onClick={this.viewPhoto.bind(this,photoObject.Photo_id)} key={photoObject.Photo_id} style={individualPhotoStyling} src={photoObject.thumbnailUrl} className="img-thumbnail"/>);
+
+            },
+
+            // Testing the clicking of an image
+
+            viewPhoto: function(photoID){
+                // Need to change the state of lastphotoviewed
+                this.setState({lastPhotoID:photoID, mode:3});
+
+            },
+
+
+
+
+
+            photosView: function(){
+
+                return (
+
+
+                        <div>
+
+                            <div>
+                                <h2><u>My Photos</u><button onClick={this.manageButton} type="button" className="btn btn-primary pull-right">Manage <span className="glyphicon glyphicon-th-large"></span></button></h2>
+
+
+                            </div>
+                            <div style={{marginTop:"30px"}}>
+
+                                {this.state.photos.map(this.eachPhoto)}
+
+
+
+
+
+
+                            </div>
+                        </div>
+                );
+
+            },
+
+            manageView:function(){
+
+                return(
+
+                       <section>
+                        <div className="row">
+                            <div id="fineuploader"></div>
+                        </div>
+                        <div className="row">
+                            <button onClick={this.saveChangesButton} type="button" className="btn btn-success pull-right">Back</button>
+                        </div>
+                       </section>
+
+
+                );
+
+            },
+
+
+
+            // on mount, fetch all products and stored them as this component's state
+            componentDidMount: function() {
+                this.serverRequest = $.get("api/read_all_photos.php", function (photos) {
+                    console.log(photos);
+                    this.setState({
+                        photos: JSON.parse(photos)
+                    });
+
+                }.bind(this));
+
+            },
+
+            // on unmount, kill product fetching in case the request is still pending
+            componentWillUnmount: function() {
+                this.serverRequest.abort();
+            },
+
+
+
+            render: function() {
+
+                const mode = this.state.mode;
+                // mainContent will contain html code for one of the 3 modes
+                let mainContent = null;
+
+                if(mode == 1){
+                    mainContent = this.photosView();
+                } else if (mode ==2) {
+                    mainContent = this.manageView();
+                } else {
+                    mainContent = <PhotoWithComments photoID={this.state.lastPhotoID} backButton={this.backPhotoWithComments}/>;
+                }
+
+                return(
+
+                <div className="well">
+                    {mainContent}
+                </div>
+                );
+            },
+
+
+            // The below is run after the component is rendered.
+            // This is needed as we need to get the upload drop box working.
+            componentDidUpdate: function() {
+                var self = this;
+                if (this.state.mode == 2) {
+
+                    var manualUploader = new qq.FineUploader({
+                        element: document.getElementById("fineuploader"),
+                        request: {
+                            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+                        },
+                        session: {
+                            endpoint: "/socialsite/webpages/api/read_all_photos.php"
+                        },
+                        deleteFile: {
+                            enabled: true,
+                            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
+                        },
+                        chunking: {
+                            enabled: true,
+                            concurrent: {
+                                enabled: true
+                            },
+                            success: {
+                                endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php?done"
+                            }
+                        },
+                        debug: true,
+                        resume: {
+                            enabled: true
+                        },
+                        retry: {
+                            enableAuto: true,
+                            showButton: true
+                        },
+                        validation: {
+                            allowedExtensions: ['jpeg', 'jpg', 'png'],
+                            itemLimit: 100,
+                            sizeLimit: 10 * 1000000 // 10mb = 10 * 1024 bytes
+                        },
+                        callbacks: {
+                            onComplete: function (id, name, responsejson) {
+
+
+                                // Once the uplaoad has been completed we need to store the location of the file on to the database
+
+                                var imageName = name;
+                                var uuid = responsejson['uuid'];
+
+                                var photoLoc = uuid + "/" + imageName;
+
+                                console.log(imageName);
+                                console.log(uuid);
+
+
+                                // Now the photo has been stored we need to store the location (text) in the database
+
+                                $.post({
+                                    url: "api/add_photo.php",
+                                    data: {photoLoc: photoLoc},
+                                    type: "POST",
+                                    success: function (data) {
+
+                                        var photoData = JSON.parse(data);
+                                        var Photo_id = photoData.Photo_id;
+
+                                        //Make a copy what is currently in the posts state
+                                        var arr = self.state.photos;
+
+                                        // Create new object to add to the state.photos
+
+                                        var newPhoto = {"Photo_id":Photo_id, "name":imageName, "uuid":uuid, "thumbnailUrl": "../vendor/fineuploader/php-traditional-server/files/" + photoLoc};
+
+                                        arr.unshift(newPhoto);
+
+                                        self.setState({photos:arr});
+
+
+                                    }
+
+                                }); // End of $post.
+
+
+                                // Once the file has been uploaded we also need to update state
+
+
+
+
+                            },// end of oncomplete
+                            onDeleteComplete: function(id){
+
+
+
+                                var imageName = this.getName(id);
+                                var uuid = this.getUuid(id);
+
+                                var photoLoc = uuid + "/" + imageName;
+
+                                for (var i = 0; i < self.state.photos.length; i++) {
+                                    if (self.state.photos[i].uuid == uuid && self.state.photos[i].name == imageName) {
+                                        var arr = self.state.photos;
+                                        arr.splice(i, 1);
+                                        self.setState({photos: arr});
+                                        break;
+                                   }
+                                }
+
+
+
+                                $.post({
+                                    url: "api/remove_photo.php",
+                                    data: {photoLoc: photoLoc},
+                                    type: "POST",
+                                    success: function (data) {
+
+                                        console.log(data);
+                                    }
+
+                                }); // End of $post.
+
+
+                                // We now need to remove this 'image' from state.posts
+
+                                // Its been deleted, rather then pull all posts again from the database loop through the
+                                // posts state and pop the entry
+
+
+
+
+
+
+                            }// end of onDeleteComplete
+                        }// end of callbacks
+
+                    }); // end of fine uploader
+
+
+
+
+
+
+
+                    // We now need to check if there were any changes
+
+
+                } // end of if block
+
+
+            }// end of componentdidUpdate
+
+        });
 
 
 
@@ -276,8 +684,8 @@ $pageTitle = 'index';
                         <div>
                             <div className="row">
 
-                                <button type="button" onClick={this.addNewPost} className="btn btn-primary">New Post <span className="glyphicon glyphicon-plus"></span></button>
-                                <button className="btn btn-primary">Add a photo</button>
+                                <button type="button" onClick={this.addNewPost} className="btn btn-primary pull-right">New Post <span className="glyphicon glyphicon-plus"></span></button>
+
                             </div>
                             <div className="row">
                                 {/*Now need to loop over each post, and create a corresponding blog post component*/}
@@ -403,6 +811,7 @@ $pageTitle = 'index';
 
 
         ReactDOM.render(<App/>,document.getElementById('blogreact'));
+        ReactDOM.render(<PhotoContainer/>,document.getElementById('photoContainer'));
 
 
 
@@ -422,105 +831,21 @@ $pageTitle = 'index';
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-4">
+
+            <div class="col-md-5" id="photoContainer" style="position: absolute;">
+
+            </div>
+
+            <div class="col-md-5 col-md-offset-7">
                 <p class="lead">Use this page to manage your blog. You can create, edit, update and delete your posts below</p>
-
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <!-- Insert the photos  -->
-            <div class="col-md-4">
-
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_fjords.jpg">
-                            <img src="https://www.w3schools.com/css/img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_forest.jpg">
-                            <img src="https://www.w3schools.com/css/img_forest.jpg" alt="Forest" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_lights.jpg">
-                            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Northern Lights" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_mountains.jpg">
-                            <img src="https://www.w3schools.com/css/img_mountains.jpg" alt="Mountains" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_fjords.jpg">
-                            <img src="https://www.w3schools.com/css/img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_forest.jpg">
-                            <img src="https://www.w3schools.com/css/img_forest.jpg" alt="Forest" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_lights.jpg">
-                            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Northern Lights" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="responsive">
-                    <div class="gallery">
-                        <a target="_blank" href="img_mountains.jpg">
-                            <img src="https://www.w3schools.com/css/img_mountains.jpg" alt="Mountains" width="600" height="400">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-
-
-
-            </div>
-
-
-
-
-
-
-            <div class="col-md-6 col-md-offset-4">
-                <!-- This element will render the react component/part of the website -->
-                <div id="blogreact"></div>
+                <div id="blogreact" style="width: 100%;"></div>
 
             </div>
 
 
         </div>
+
+
 
 
 
@@ -545,5 +870,86 @@ $pageTitle = 'index';
 <!--    <script src="../../dist/js/bootstrap.min.js"></script>-->
 <!--    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+    <!-- INSERT THE profile upload section-->
+
+    <script type="text/template" id="qq-template">
+        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop profile picture here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="qq-upload-button-selector qq-upload-button">
+                <div>Upload a file</div>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <div class="qq-thumbnail-wrapper">
+                        <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                    </div>
+                    <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                    <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                        <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                        Retry
+                    </button>
+
+                    <div class="qq-file-info">
+                        <div class="qq-file-name">
+                            <span class="qq-upload-file-selector qq-upload-file"></span>
+                            <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                        </div>
+                        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                        <span class="qq-upload-size-selector qq-upload-size"></span>
+                        <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                            <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                        </button>
+                        <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                            <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                        </button>
+                        <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                            <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+
+
+
   </body>
 </html>

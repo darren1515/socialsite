@@ -132,7 +132,6 @@ function connectToDatabase(){
     if(!defined('SERVERNAME')){
 
 
-
         DEFINE("USERNAME", "root");
     DEFINE("SERVERPASSWORD", "7AEA61437E");
     DEFINE('SERVERNAME', 'localhost');

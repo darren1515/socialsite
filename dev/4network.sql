@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 11, 2017 at 03:31 PM
+-- Generation Time: Mar 12, 2017 at 07:20 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `4network`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attributes`
+--
+
+CREATE TABLE `attributes` (
+  `User_ID` int(6) NOT NULL,
+  `Age` int(6) NOT NULL,
+  `Sports` int(6) NOT NULL,
+  `Movies` int(6) NOT NULL,
+  `Music` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -102,10 +116,18 @@ INSERT INTO `groups` (`Group_ID`, `Group_Name`, `Date_Created`) VALUES
 --
 
 CREATE TABLE `photos` (
-  `User_id` int(11) NOT NULL,
   `Photo_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `location` text NOT NULL COMMENT 'The location of the image ',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `photos`
+--
+
+INSERT INTO `photos` (`Photo_id`, `User_id`, `location`, `Timestamp`) VALUES
+(1, 2, 'asdfasdfa', '2017-03-12 18:17:56');
 
 -- --------------------------------------------------------
 
@@ -191,6 +213,12 @@ INSERT INTO `users_groups` (`User_ID`, `Group_ID`) VALUES
 --
 
 --
+-- Indexes for table `attributes`
+--
+ALTER TABLE `attributes`
+  ADD UNIQUE KEY `User_ID` (`User_ID`);
+
+--
 -- Indexes for table `chat`
 --
 ALTER TABLE `chat`
@@ -222,7 +250,7 @@ ALTER TABLE `groups`
 -- Indexes for table `photos`
 --
 ALTER TABLE `photos`
-  ADD PRIMARY KEY (`User_id`),
+  ADD PRIMARY KEY (`Photo_id`),
   ADD KEY `Photo_id` (`Photo_id`);
 
 --
@@ -266,6 +294,11 @@ ALTER TABLE `comments`
 ALTER TABLE `groups`
   MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `photos`
+--
+ALTER TABLE `photos`
+  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
@@ -280,6 +313,12 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `attributes`
+--
+ALTER TABLE `attributes`
+  ADD CONSTRAINT `attributes_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `chat`
 --
 ALTER TABLE `chat`
@@ -290,20 +329,13 @@ ALTER TABLE `chat`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`Photo_ID`) REFERENCES `photos` (`Photo_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `friends`
 --
 ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`User_id1`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `photos`
---
-ALTER TABLE `photos`
-  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `posts`
