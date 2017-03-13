@@ -120,42 +120,10 @@ $pageTitle = 'index';
           }
       </style>
 
-      <style>
-      /*This is the space for user comments*/
 
-      .thumbnail {
-          padding:0px;
-      }
-      .panel {
-          position:relative;
-      }
-      .panel>.panel-heading:after,.panel>.panel-heading:before{
-          position:absolute;
-          top:11px;left:-16px;
-          right:100%;
-          width:0;
-          height:0;
-          display:block;
-          content:" ";
-          border-color:transparent;
-          border-style:solid solid outset;
-          pointer-events:none;
-      }
-      .panel>.panel-heading:after{
-          border-width:7px;
-          border-right-color:#f7f7f7;
-          margin-top:1px;
-          margin-left:2px;
-      }
-      .panel>.panel-heading:before{
-          border-right-color:#ddd;
-          border-width:8px;
-      }
+      <!-- Photo Commment styles include -->
 
-
-
-
-      </style>
+      <link href="css/photoCommentStyles.css" rel="stylesheet">
 
       <!-- Include fine-uploader files -->
       <link href="../fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
@@ -212,11 +180,70 @@ $pageTitle = 'index';
                 };
             },
 
+            // Once the component is created, pull the comments.
+            componentDidMount: function() {
+                var photoID = this.props.photoID;
+                this.serverRequest = $.post("api/read_all_comments.php", {photoID: photoID}, function (comments) {
+
+                    this.setState({
+                        comments: JSON.parse(comments)
+                    });
+
+                }.bind(this));
+
+            },
+
+
+
 
             backButton: function(){
+                // Calls the parent components backButton function to change the state in the parent.
                 this.props.backButton();
             },
 
+            eachComment: function(commentObject,index){
+
+                // Deal with situation if the user has no profile
+
+                let profileimage = null;
+
+                if(commentObject.profilephoto != ""){
+                    profileimage = <img className="img-responsive user-photo" src={commentObject.profilephoto}/>
+                } else {
+                    profileimage = <img className="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                }
+
+
+
+                return(
+                <div key = {commentObject.comment_id} className="row" style={{"width":"100%","marginTop":"30px"}}>
+                    <div className="col-md-2">
+                        <div className="thumbnail">
+                            {profileimage}
+                        </div>
+                    </div>
+
+                    <div className="col-md-10">
+                        <div className="panel panel-default">
+                            <div className="panel-heading">
+                                <strong>{commentObject.first_name} {commentObject.last_name}</strong> <span className="text-muted">{commentObject.time}</span>
+                            </div>
+                            <div className="panel-body">
+                                {commentObject.text}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>);
+
+
+            },
+
+
+            // Add a part at the bottom of photos section to add a new comment.
+            // We have the userID from the session.
+
+            // Once the comment is added we need it to be added to the list.
 
             render:function(){
 
@@ -226,28 +253,13 @@ $pageTitle = 'index';
                         <div className="row">
                             <div className="col-md-offset-2 col-md-8">
                                 <button type="button" onClick={this.backButton} className="btn btn-primary pull-left" style={{"marginBottom":"10px"}}>Back</button>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Chess_Large.JPG" className="img-rounded img-responsive" height="200" />
+                            <img src={this.props.imageLoc} className="img-rounded img-responsive" height="200" />
                             </div>
                         </div>
-                        <div className="row" style={{"width":"100%","marginTop":"30px"}}>
-                            <div className="col-md-2">
-                                <div className="thumbnail">
-                                    <img className="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-                                </div>
-                            </div>
 
-                            <div className="col-md-10">
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <strong>Darren Lahr</strong> <span className="text-muted">commented 5 days ago</span>
-                                    </div>
-                                    <div className="panel-body">
-                                        Great Photo
-                                    </div>
-                                </div>
-                            </div>
+                        {this.state.comments.map(this.eachComment)}
 
-                        </div>
+
 
                     </div>
 
@@ -269,7 +281,8 @@ $pageTitle = 'index';
                 return {
                     mode: 1,
                     photos:[],
-                    lastPhotoID: 0
+                    lastPhotoID: 0,
+                    lastImageLoc:""
                 };
             },
 
@@ -296,16 +309,16 @@ $pageTitle = 'index';
             eachPhoto:function(photoObject,index)
 
             {
-
-                return(<img onClick={this.viewPhoto.bind(this,photoObject.Photo_id)} key={photoObject.Photo_id} style={individualPhotoStyling} src={photoObject.thumbnailUrl} className="img-thumbnail"/>);
+                // On Click capture the photoID and the location of the image.
+                return(<img onClick={this.viewPhoto.bind(this,photoObject.Photo_id,photoObject.thumbnailUrl)} key={photoObject.Photo_id} style={individualPhotoStyling} src={photoObject.thumbnailUrl} className="img-thumbnail"/>);
 
             },
 
             // Testing the clicking of an image
 
-            viewPhoto: function(photoID){
+            viewPhoto: function(photoID,imageLoc){
                 // Need to change the state of lastphotoviewed
-                this.setState({lastPhotoID:photoID, mode:3});
+                this.setState({lastPhotoID:photoID,lastImageLoc:imageLoc, mode:3});
 
             },
 
@@ -390,7 +403,7 @@ $pageTitle = 'index';
                 } else if (mode ==2) {
                     mainContent = this.manageView();
                 } else {
-                    mainContent = <PhotoWithComments photoID={this.state.lastPhotoID} backButton={this.backPhotoWithComments}/>;
+                    mainContent = <PhotoWithComments key={this.state.lastPhotoID} photoID={this.state.lastPhotoID} imageLoc={this.state.lastImageLoc} backButton={this.backPhotoWithComments}/>;
                 }
 
                 return(
