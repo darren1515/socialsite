@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 13, 2017 at 06:09 PM
+-- Generation Time: Mar 14, 2017 at 02:03 AM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -61,16 +61,6 @@ CREATE TABLE `comments` (
   `Photo_ID` int(11) NOT NULL,
   `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`Comment_ID`, `Text`, `User_ID`, `Photo_ID`, `TimeStamp`) VALUES
-(1, 'Great photo', 24, 1, '2017-03-12 18:45:57'),
-(2, 'test text', 26, 1, '2017-03-12 18:45:57'),
-(3, 'I don\'t like this shit', 26, 32, '2017-03-13 02:09:20'),
-(4, 'Market risk :(', 24, 32, '2017-03-13 02:09:50');
 
 -- --------------------------------------------------------
 
@@ -132,14 +122,6 @@ CREATE TABLE `photos` (
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `photos`
---
-
-INSERT INTO `photos` (`Photo_id`, `User_id`, `location`, `Timestamp`) VALUES
-(31, 30, 'a06aeb03-ed6a-4773-bc85-10e5068b0378/image.jpg', '2017-03-12 23:23:44'),
-(32, 30, 'aa01a9a8-a9d4-47ec-8a22-6a0fb6b4682b/sample1_l.jpg', '2017-03-13 02:06:32');
-
 -- --------------------------------------------------------
 
 --
@@ -164,7 +146,7 @@ INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
 (39, 31, 'dsafsad', '2017-03-10 15:26:52'),
 (40, 31, 'hasdfasdf', '2017-03-10 15:26:56'),
 (41, 31, 'asdfasd', '2017-03-10 15:32:52'),
-(42, 30, 'asdfasdfa', '2017-03-13 00:02:08');
+(43, 30, NULL, '2017-03-14 01:43:35');
 
 -- --------------------------------------------------------
 
@@ -197,7 +179,7 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (25, 'Bob', 'Marin', '', '0000-00-00', '', '', '', '', 0, '', NULL, '2017-03-03 23:59:48'),
 (26, 'Rod', 'Smith', '', '0000-00-00', '', '', '', '', 0, '4', NULL, '2017-03-08 15:15:01'),
 (27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, '3', NULL, '2017-03-08 15:10:18'),
-(30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-09 19:04:09'),
+(30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-14 00:43:48'),
 (31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', '30d4f7a7-c67f-463b-9b27-9e7233ca4541/image.jpg', '2017-03-10 22:55:53');
 
 -- --------------------------------------------------------
@@ -299,7 +281,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -309,12 +291,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -341,7 +323,8 @@ ALTER TABLE `chat`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `deleteWhenPhotoDelete` FOREIGN KEY (`Photo_ID`) REFERENCES `photos` (`Photo_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `friends`
