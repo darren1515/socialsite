@@ -84,6 +84,8 @@ class Photos
 
         $query = "DELETE FROM photos WHERE User_id = $this->userID AND location = '$location'";
 
+        // Deleltion of corresponding comments is done through constraints in php my admin.
+
         mysqli_query($this->conn,$query);
 
         return true;

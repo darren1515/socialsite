@@ -61,4 +61,87 @@ class Comments
 
         return json_encode($ary);
     }
+
+    // The below method will be used to add a comment, the user_id, photoid and text will be needed
+
+    public function addComment($text){
+
+
+        // Will need to return a json object ob the newly created comment
+
+        $myComment = array();
+
+        // What we need
+
+        /*
+         * comment_id (database)
+         * first_name (database)
+         * last_name (database)
+         * profilephoto (database)
+         * text (javascript)
+         * time (php)
+         */
+
+        // We first need to insert the comment into the comments table
+
+        $query = "INSERT INTO comments (User_ID, Photo_ID, Text) VALUES ($this->userID, $this->photoID, '$text')";
+
+        // Now insert the comment into the table
+        mysqli_query($this->conn,$query);
+
+        $comment_id = mysqli_insert_id($this->conn);
+
+        $myComment['comment_id'] = $comment_id;
+
+        // We now need to pull the first_name, last_name, profilephoto
+
+        $query = "SELECT First_name, Last_name, profilephoto FROM users WHERE User_id=$this->userID";
+
+        // This will pull back a single row.
+
+        $result = mysqli_query($this->conn,$query);
+
+        // Associative array
+        $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+        $myComment['first_name'] = $row['First_name'];
+        $myComment['last_name'] = $row['Last_name'];
+
+        // Put the text
+
+        $myComment['text'] = $text;
+
+
+        //Put the time
+
+        $myComment['time']=date('Y-m-d H:i:s');
+
+        // The user may or may not have a profile picture
+
+        $profilephoto = trim($row['profilephoto']);
+
+            if(!empty($profilephoto)){
+                $myComment['profilephoto'] = "../vendor/fineuploader/php-traditional-server/files/" . $row['profilephoto'];
+            } else {
+                $myComment['profilephoto'] = "";
+            }
+
+        return json_encode($myComment);
+
+    }
+
+    // Delete a comment, we will need the commentID
+
+    public function deleteComment($commentID){
+
+
+        $query = "DELETE FROM comments WHERE Comment_ID=$commentID LIMIT 1";
+
+        if(mysqli_query($this->conn,$query) === TRUE){
+            return True;
+        } else {
+            return False;
+        }
+    }
+
 }

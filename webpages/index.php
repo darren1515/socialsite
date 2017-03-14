@@ -125,6 +125,11 @@ $pageTitle = 'index';
 
       <link href="css/photoCommentStyles.css" rel="stylesheet">
 
+      <!-- Add in the styling for Posts within comment -->
+
+      <link href="css/photoPostStyles.css" rel="stylesheet">
+
+
       <!-- Include fine-uploader files -->
       <link href="../fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
       <script src="../fine-uploader/fine-uploader.min.js"></script>
@@ -165,7 +170,9 @@ $pageTitle = 'index';
 
         // Styling for photo container
 
-        var photocomments = {
+        var commentDeleteButton = {
+            marginTop:"-7px"
+
 
         };
 
@@ -185,11 +192,95 @@ $pageTitle = 'index';
                 var photoID = this.props.photoID;
                 this.serverRequest = $.post("api/read_all_comments.php", {photoID: photoID}, function (comments) {
 
+
+                    console.log(comments);
+
                     this.setState({
                         comments: JSON.parse(comments)
                     });
 
                 }.bind(this));
+
+            },
+
+            // The below method gets run the user clicks the post button
+
+            postComment:function(){
+
+                // We need to grab the text in the text area somehow.
+
+
+                var userInputtedText = this.refs.commentText.value;
+                var photoID = this.props.photoID;
+
+                if(userInputtedText.trim() == ""){
+                    return;
+                }
+
+                $.post("api/create_new_comment.php", {photoID: photoID, userInputtedText:userInputtedText}, function (commentObject) {
+
+
+                    commentObject = JSON.parse(commentObject);
+                    //Make a copy what is currently in the posts state
+                    var arr = this.state.comments;
+                    // Add the new comment Object
+
+                    arr.unshift(commentObject);
+
+                    this.setState({comments:arr});
+
+
+                    // Then we need to clear all text in the text area
+
+                    this.refs.commentText.value = "";
+
+                }.bind(this));
+
+
+
+            },
+
+            // Delete a comment, all we need is the commentID
+
+            deleteComment: function(e){
+
+                var commentID = e.target.getAttribute('rel');
+
+                // We need to update the state.comments
+
+
+
+                for (var i = 0; i < this.state.comments.length; i++) {
+                    if (this.state.comments[i].comment_id == commentID) {
+                        var arr = this.state.comments;
+                        arr.splice(i, 1);
+                        this.setState({comments: arr});
+                        break;
+                    }
+                }
+
+                // We also need to send a request to the database.
+
+                $.post("api/delete_comment.php",{commentID:commentID});
+
+
+            },
+
+            renderPhotoPost: function(){
+
+                return (
+
+                        <div className="widget-area no-padding blank">
+                            <div className="status-upload">
+                                <form>
+                                    <textarea ref='commentText' placeholder="Say something nice about the above photo?" ></textarea>
+
+                                    <button type="button" onClick={this.postComment} className="btn btn-success green"><i className="fa fa-share"></i> Post</button>
+                                </form>
+                            </div>
+                        </div>
+
+                );
 
             },
 
@@ -214,9 +305,8 @@ $pageTitle = 'index';
                 }
 
 
-
                 return(
-                <div key = {commentObject.comment_id} className="row" style={{"width":"100%","marginTop":"30px"}}>
+                <div key={commentObject.comment_id} className="row" style={{"width":"100%","marginTop":"30px"}}>
                     <div className="col-md-2">
                         <div className="thumbnail">
                             {profileimage}
@@ -226,7 +316,7 @@ $pageTitle = 'index';
                     <div className="col-md-10">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <strong>{commentObject.first_name} {commentObject.last_name}</strong> <span className="text-muted">{commentObject.time}</span>
+                                <strong>{commentObject.first_name} {commentObject.last_name}</strong> <span className="text-muted">{commentObject.time}<button type="button" style={commentDeleteButton} onClick={this.deleteComment} rel={commentObject.comment_id} className="btn btn-danger pull-right glyphicon glyphicon-trash"></button></span>
                             </div>
                             <div className="panel-body">
                                 {commentObject.text}
@@ -247,6 +337,12 @@ $pageTitle = 'index';
 
             render:function(){
 
+                // We need to call the renderPhotopost method to obtain the html code behind
+                // what a post box will look like.
+
+                let commentPost = this.renderPhotoPost();
+
+
                 return (
 
                     <div>
@@ -259,7 +355,11 @@ $pageTitle = 'index';
 
                         {this.state.comments.map(this.eachComment)}
 
+                        <div className="row">
 
+                            {commentPost}
+
+                        </div>
 
                     </div>
 
@@ -466,8 +566,8 @@ $pageTitle = 'index';
 
                                 var photoLoc = uuid + "/" + imageName;
 
-                                console.log(imageName);
-                                console.log(uuid);
+                                //console.log(imageName);
+                                //console.log(uuid);
 
 
                                 // Now the photo has been stored we need to store the location (text) in the database
@@ -845,11 +945,11 @@ $pageTitle = 'index';
 
         <div class="row">
 
-            <div class="col-md-5" id="photoContainer" style="position: absolute;">
+            <div class="col-md-5" id="photoContainer" >
 
             </div>
 
-            <div class="col-md-5 col-md-offset-7">
+            <div class="col-md-7">
                 <p class="lead">Use this page to manage your blog. You can create, edit, update and delete your posts below</p>
                 <div id="blogreact" style="width: 100%;"></div>
 
