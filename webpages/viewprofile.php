@@ -24,7 +24,7 @@ if(!is_logged_in()){
 #On every page we need a variable that will highlight the relevant page we are on
 # in the nav bar
 
-$pageTitle = 'index';
+$pageTitle = 'viewprofile';
 
 ?>
 
@@ -133,6 +133,23 @@ $pageTitle = 'index';
       <!-- Include fine-uploader files -->
       <link href="../fine-uploader/fine-uploader-gallery.min.css" rel="stylesheet">
       <script src="../fine-uploader/fine-uploader.min.js"></script>
+
+
+
+      <!-- Script to get variables from the url http://papermashup.com/read-url-get-variables-withjavascript/ -->
+
+      <script>
+
+          function getUrlVars() {
+              var vars = {};
+              var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                  vars[key] = value;
+              });
+              return vars;
+          }
+
+      </script>
+
   </head>
 
   <body>
@@ -240,31 +257,6 @@ $pageTitle = 'index';
 
             },
 
-            // Delete a comment, all we need is the commentID
-
-            deleteComment: function(e){
-
-                var commentID = e.target.getAttribute('rel');
-
-                // We need to update the state.comments
-
-
-
-                for (var i = 0; i < this.state.comments.length; i++) {
-                    if (this.state.comments[i].comment_id == commentID) {
-                        var arr = this.state.comments;
-                        arr.splice(i, 1);
-                        this.setState({comments: arr});
-                        break;
-                    }
-                }
-
-                // We also need to send a request to the database.
-
-                $.post("api/delete_comment.php",{commentID:commentID});
-
-
-            },
 
             renderPhotoPost: function(){
 
@@ -316,7 +308,7 @@ $pageTitle = 'index';
                     <div className="col-md-10">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <strong>{commentObject.first_name} {commentObject.last_name}</strong> <span className="text-muted">{commentObject.time}<button type="button" style={commentDeleteButton} onClick={this.deleteComment} rel={commentObject.comment_id} className="btn btn-danger pull-right glyphicon glyphicon-trash"></button></span>
+                                <strong>{commentObject.first_name} {commentObject.last_name}</strong> <span className="text-muted">{commentObject.time}</span>
                             </div>
                             <div className="panel-body">
                                 {commentObject.text}
@@ -387,12 +379,6 @@ $pageTitle = 'index';
             },
 
 
-            // When Manage button is clicked in Photos view go to the manage view (2)
-
-            manageButton: function(){
-
-                this.setState({mode:2});
-            },
 
             // When the save button is clicked within the manage(2) view go back to photos view (1)
 
@@ -434,7 +420,7 @@ $pageTitle = 'index';
                         <div>
 
                             <div>
-                                <h2><u>My Photos</u><button onClick={this.manageButton} type="button" className="btn btn-primary pull-right">Manage <span className="glyphicon glyphicon-th-large"></span></button></h2>
+                                <h2><u>View Photos</u></h2>
 
 
                             </div>
@@ -453,30 +439,14 @@ $pageTitle = 'index';
 
             },
 
-            manageView:function(){
-
-                return(
-
-                       <section>
-                        <div className="row">
-                            <div id="fineuploader"></div>
-                        </div>
-                        <div className="row">
-                            <button onClick={this.saveChangesButton} type="button" className="btn btn-success pull-right">Back</button>
-                        </div>
-                       </section>
-
-
-                );
-
-            },
 
 
 
             // on mount, fetch all products and stored them as this component's state
+            // Based on the variable in the URL.
             componentDidMount: function() {
-                this.serverRequest = $.get("api/read_all_photos.php", function (photos) {
-                    console.log(photos);
+                this.serverRequest = $.get("api/read_all_photos_profile.php", {profilePageID:this.props.profilePageID}, function (photos) {
+
                     this.setState({
                         photos: JSON.parse(photos)
                     });
@@ -500,9 +470,8 @@ $pageTitle = 'index';
 
                 if(mode == 1){
                     mainContent = this.photosView();
-                } else if (mode ==2) {
-                    mainContent = this.manageView();
-                } else {
+                }
+                else {
                     mainContent = <PhotoWithComments key={this.state.lastPhotoID} photoID={this.state.lastPhotoID} imageLoc={this.state.lastImageLoc} backButton={this.backPhotoWithComments}/>;
                 }
 
@@ -515,161 +484,15 @@ $pageTitle = 'index';
             },
 
 
-            // The below is run after the component is rendered.
-            // This is needed as we need to get the upload drop box working.
-            componentDidUpdate: function() {
-                var self = this;
-                if (this.state.mode == 2) {
-
-                    var manualUploader = new qq.FineUploader({
-                        element: document.getElementById("fineuploader"),
-                        request: {
-                            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
-                        },
-                        session: {
-                            endpoint: "/socialsite/webpages/api/read_all_photos.php"
-                        },
-                        deleteFile: {
-                            enabled: true,
-                            endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php"
-                        },
-                        chunking: {
-                            enabled: true,
-                            concurrent: {
-                                enabled: true
-                            },
-                            success: {
-                                endpoint: "/socialsite/vendor/fineuploader/php-traditional-server/endpoint.php?done"
-                            }
-                        },
-                        debug: true,
-                        resume: {
-                            enabled: true
-                        },
-                        retry: {
-                            enableAuto: true,
-                            showButton: true
-                        },
-                        validation: {
-                            allowedExtensions: ['jpeg', 'jpg', 'png'],
-                            itemLimit: 100,
-                            sizeLimit: 10 * 1000000 // 10mb = 10 * 1024 bytes
-                        },
-                        callbacks: {
-                            onComplete: function (id, name, responsejson) {
-
-
-                                // Once the uplaoad has been completed we need to store the location of the file on to the database
-
-                                var imageName = name;
-                                var uuid = responsejson['uuid'];
-
-                                var photoLoc = uuid + "/" + imageName;
-
-                                //console.log(imageName);
-                                //console.log(uuid);
-
-
-                                // Now the photo has been stored we need to store the location (text) in the database
-
-                                $.post({
-                                    url: "api/add_photo.php",
-                                    data: {photoLoc: photoLoc},
-                                    type: "POST",
-                                    success: function (data) {
-
-                                        var photoData = JSON.parse(data);
-                                        var Photo_id = photoData.Photo_id;
-
-                                        //Make a copy what is currently in the posts state
-                                        var arr = self.state.photos;
-
-                                        // Create new object to add to the state.photos
-
-                                        var newPhoto = {"Photo_id":Photo_id, "name":imageName, "uuid":uuid, "thumbnailUrl": "../vendor/fineuploader/php-traditional-server/files/" + photoLoc};
-
-                                        arr.unshift(newPhoto);
-
-                                        self.setState({photos:arr});
-
-
-                                    }
-
-                                }); // End of $post.
-
-
-                                // Once the file has been uploaded we also need to update state
-
-
-
-
-                            },// end of oncomplete
-                            onDeleteComplete: function(id){
-
-
-
-                                var imageName = this.getName(id);
-                                var uuid = this.getUuid(id);
-
-                                var photoLoc = uuid + "/" + imageName;
-
-                                for (var i = 0; i < self.state.photos.length; i++) {
-                                    if (self.state.photos[i].uuid == uuid && self.state.photos[i].name == imageName) {
-                                        var arr = self.state.photos;
-                                        arr.splice(i, 1);
-                                        self.setState({photos: arr});
-                                        break;
-                                   }
-                                }
-
-
-
-                                $.post({
-                                    url: "api/remove_photo.php",
-                                    data: {photoLoc: photoLoc},
-                                    type: "POST",
-                                    success: function (data) {
-
-                                        console.log(data);
-                                    }
-
-                                }); // End of $post.
-
-
-                                // We now need to remove this 'image' from state.posts
-
-                                // Its been deleted, rather then pull all posts again from the database loop through the
-                                // posts state and pop the entry
-
-
-
-
-
-
-                            }// end of onDeleteComplete
-                        }// end of callbacks
-
-                    }); // end of fine uploader
-
-
-
-
-
-
-
-                    // We now need to check if there were any changes
-
-
-                } // end of if block
-
-
-            }// end of componentdidUpdate
-
         });
 
 
 
         var App = React.createClass({
+
+            // Grab the userID from the URL of who's page we are on
+
+
 
             // This will contain all the blogPost components
 
@@ -681,7 +504,7 @@ $pageTitle = 'index';
 
             // on mount, fetch all products and stored them as this component's state
             componentDidMount: function() {
-                this.serverRequest = $.get("api/read_all_posts.php", function (posts) {
+                this.serverRequest = $.get("api/read_all_posts_profile.php", {profilePageID:this.props.profilePageID}, function (posts) {
                     this.setState({
                         posts: JSON.parse(posts)
                     });
@@ -695,98 +518,14 @@ $pageTitle = 'index';
                 this.serverRequest.abort();
             },
 
-            // This will be called when the user clicks the New post button
-            // By default when a user creates a new post there will be no text.
-            addNewPost: function(){
-                $.get("api/create_new_post.php", function (newpost) {
-                    //newpost is a javascript object with postID and latestTime
 
-                    newpost = JSON.parse(newpost);
-
-                    console.log(newpost);
-
-                    //Make a copy what is currently in the posts state
-                    var arr = this.state.posts;
-                    // Add the new post info
-
-                    arr.unshift(newpost);
-
-                    this.setState({posts:arr});
-
-                }.bind(this));
-
-
-            },
-
-            removePost: function(postID) {
-                // Use ajax to send the data to delete_post
-
-
-                $.post("api/delete_post.php",
-                    {postID: postID},
-                    function (success) {
-
-                        if (success) {
-                            // Its been deleted, rather then pull all posts again from the database loop through the
-                            // posts state and pop the entry
-                            for (var i = 0; i < this.state.posts.length; i++) {
-                                if (this.state.posts[i].postID == postID) {
-                                    var arr = this.state.posts;
-                                    arr.splice(i, 1);
-                                    this.setState({posts: arr});
-                                    break;
-                                }
-                            }
-
-                            // We now need to make a copy of state.post
-
-                        }
-
-
-                    }.bind(this));
-
-
-
-            },
-
-            // Create a function that will update a users post once they press the save button
-
-            updatePost: function(postID, newText){
-
-
-                $.post("api/update_post.php",
-                    {postID: postID, newText: newText},
-                    function (success) {
-
-                        if (success) {
-                            // The entry has been successfully updated. Find it in the
-                            // posts and update it instead of requesting data from server.
-                            for (var i = 0; i < this.state.posts.length; i++) {
-                                if (this.state.posts[i].postID == postID) {
-                                    var arr = this.state.posts;
-                                    arr[i].text = newText;
-                                    this.setState({posts: arr});
-                                    break;
-                                }
-                            }
-
-                            // We now need to make a copy of state.post
-
-                        }
-
-                    }.bind(this));
-
-
-
-
-            },
 
             // Create a function that will run for every blog post
 
             eachPost: function(object,i) {
 
                 return (<Blogpost key={object.postID} index={object.postID} date={object.latestTime}
-                                  text={object.message} deletePost={this.removePost} updatePost={this.updatePost}/>);
+                                  text={object.message}/>);
 
             },
 
@@ -795,11 +534,6 @@ $pageTitle = 'index';
                 return(
 
                         <div>
-                            <div className="row">
-
-                                <button type="button" onClick={this.addNewPost} className="btn btn-primary pull-right">New Post <span className="glyphicon glyphicon-plus"></span></button>
-
-                            </div>
                             <div className="row">
                                 {/*Now need to loop over each post, and create a corresponding blog post component*/}
                                 {this.state.posts.map(this.eachPost)}
@@ -826,80 +560,16 @@ $pageTitle = 'index';
                 /*We initially need to pull all the blog posts for the given user.
                 * To do this we need the userID*/
                 return {
-                    editMode:false,
                     text:this.props.text,
                     lastEditDate:this.props.date
                 }
             },
 
-            edit: function () {
-                this.setState({editMode:true});
-            },
 
-            save: function() {
-                console.log('Update the comment.');
-                this.props.updatePost(this.props.index,this.state.text);
-            },
-
-            // When deleting a blog post we need to use a method in the parent component
-
-            delete: function (){
-                console.log('Delete the comment.');
-                this.props.deletePost(this.props.index);
-            },
-
-            cancelChanges : function(){
-                //No updates will made to the database and we will leave editMode
-                this.setState({editMode:false});
-            },
-
-
-
-
-            handleChange: function(event){
-
-                if(this.state.editMode){
-                    this.setState({text:event.target.value});
-                }
-
-            },
-
-            renderEditButtons: function () {
-
-                return (
-                        <div>
-                            <button type="button" onClick={this.cancelChanges} className="btn btn-primary"><span className="glyphicon glyphicon-arrow-left"></span> Back</button>
-                            <button type="button" onClick={this.save} className="btn btn-success"><span className="glyphicon glyphicon-floppy-disk"></span> Save </button>
-                        </div>
-
-                );
-
-            },
-
-            renderNonEditButtons: function () {
-                return (
-                        <div>
-                            <button type="button" onClick={this.edit} className="btn btn-warning"><span className="glyphicon glyphicon-pencil"></span> Edit</button>
-                            <button type="button" onClick={this.delete} className="btn btn-danger"><span className="glyphicon glyphicon-trash"></span> Delete</button>
-                        </div>
-                );
-
-
-            },
 
 
 
             render: function () {
-
-                const inEditMode = this.state.editMode;
-                let buttons = null;
-
-                if(inEditMode){
-                    buttons = this.renderEditButtons();
-                } else {
-                    buttons = this.renderNonEditButtons();
-                }
-
 
 
                 return(
@@ -908,9 +578,6 @@ $pageTitle = 'index';
                             <div className="row" style={{margin:"5%"}}>
                                 <textarea style={blogPostTextAreaStyle} onChange={this.handleChange} value={this.state.text}/>
 
-                            </div>
-                            <div className="row" style={{margin:"-2% 5%"}}>
-                                {buttons}
                             </div>
                         </div>
 
@@ -922,9 +589,11 @@ $pageTitle = 'index';
 
         });
 
+        // We will pass the userID of the profile page we are on into the component as props.
+        var whosProfile = getUrlVars()["userID"];
 
-        ReactDOM.render(<App/>,document.getElementById('blogreact'));
-        ReactDOM.render(<PhotoContainer/>,document.getElementById('photoContainer'));
+        ReactDOM.render(<App profilePageID={whosProfile}/>,document.getElementById('blogreact'));
+        ReactDOM.render(<PhotoContainer profilePageID={whosProfile}/>,document.getElementById('photoContainer'));
 
 
 
@@ -1061,6 +730,18 @@ $pageTitle = 'index';
             </dialog>
         </div>
     </script>
+
+  <script>
+
+      $(document).ready(function(){
+
+          var first = getUrlVars()["userID"];
+          console.log(first);
+
+      });
+
+
+  </script>
 
 
 
