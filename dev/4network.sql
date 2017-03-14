@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 14, 2017 at 04:58 PM
+-- Generation Time: Mar 14, 2017 at 06:02 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -65,6 +65,29 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `friendgroup`
+--
+
+CREATE TABLE `friendgroup` (
+  `Group_ID` int(11) NOT NULL,
+  `Group_name` varchar(225) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Create_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friendgroup`
+--
+
+INSERT INTO `friendgroup` (`Group_ID`, `Group_name`, `User_ID`, `Create_TIME`) VALUES
+(84, 'rrrrrrrrwwwwwwsssss', 28, '2017-03-14 15:30:28.408356'),
+(87, 'fhgfh', 28, '2017-03-14 15:53:07.680728'),
+(88, 'rrtrrtdtr', 28, '2017-03-14 16:35:27.614205'),
+(89, 'group of master max', 31, '2017-03-14 16:54:05.422537');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `friends`
 --
 
@@ -73,6 +96,26 @@ CREATE TABLE `friends` (
   `User_id2` int(11) NOT NULL,
   `friendStatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 is pending, 1 is accepted',
   `time_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
+(30, 31, 1, '2017-03-14 16:51:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grouprelation`
+--
+
+CREATE TABLE `grouprelation` (
+  `Operation_ID` int(11) NOT NULL,
+  `Group_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Operation_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -143,28 +186,6 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-14 00:43:48'),
 (31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', NULL, '2017-03-14 13:43:35');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users_chat`
---
-
-CREATE TABLE `users_chat` (
-  `User_ID` int(11) NOT NULL,
-  `Message_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_groups`
---
-
-CREATE TABLE `users_groups` (
-  `User_ID` int(11) NOT NULL,
-  `Group_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Indexes for dumped tables
 --
@@ -192,10 +213,22 @@ ALTER TABLE `comments`
   ADD KEY `Photo_ID` (`Photo_ID`);
 
 --
+-- Indexes for table `friendgroup`
+--
+ALTER TABLE `friendgroup`
+  ADD PRIMARY KEY (`Group_ID`);
+
+--
 -- Indexes for table `friends`
 --
 ALTER TABLE `friends`
   ADD UNIQUE KEY `User_id1` (`User_id1`,`User_id2`) USING BTREE;
+
+--
+-- Indexes for table `grouprelation`
+--
+ALTER TABLE `grouprelation`
+  ADD PRIMARY KEY (`Operation_ID`);
 
 --
 -- Indexes for table `groups`
@@ -226,20 +259,6 @@ ALTER TABLE `users`
   ADD KEY `PrivacySetting_FK` (`privacysetting`);
 
 --
--- Indexes for table `users_chat`
---
-ALTER TABLE `users_chat`
-  ADD UNIQUE KEY `User_ID` (`User_ID`,`Message_ID`),
-  ADD KEY `Message_ID` (`Message_ID`);
-
---
--- Indexes for table `users_groups`
---
-ALTER TABLE `users_groups`
-  ADD UNIQUE KEY `Grouped FK` (`User_ID`,`Group_ID`) USING BTREE,
-  ADD KEY `Group_ID` (`Group_ID`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -247,12 +266,22 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `friendgroup`
+--
+ALTER TABLE `friendgroup`
+  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+--
+-- AUTO_INCREMENT for table `grouprelation`
+--
+ALTER TABLE `grouprelation`
+  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -314,20 +343,6 @@ ALTER TABLE `photos`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `users_chat`
---
-ALTER TABLE `users_chat`
-  ADD CONSTRAINT `users_chat_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_chat_ibfk_2` FOREIGN KEY (`Message_ID`) REFERENCES `chat` (`Message_ID`) ON UPDATE CASCADE;
-
---
--- Constraints for table `users_groups`
---
-ALTER TABLE `users_groups`
-  ADD CONSTRAINT `users_groups_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_groups_ibfk_2` FOREIGN KEY (`Group_ID`) REFERENCES `groups` (`Group_ID`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
