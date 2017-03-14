@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 14, 2017 at 02:03 AM
+-- Generation Time: Mar 14, 2017 at 04:58 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `attributes` (
-  `User_id` int(6) NOT NULL,
+  `User_id` int(11) NOT NULL,
   `Age` int(6) NOT NULL,
   `Sports` int(6) NOT NULL,
   `Movies` int(6) NOT NULL,
@@ -75,18 +75,6 @@ CREATE TABLE `friends` (
   `time_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `friends`
---
-
-INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
-(24, 27, 1, '2017-03-04 16:41:00'),
-(24, 28, 1, '2017-03-04 16:41:43'),
-(24, 30, 0, '2017-03-09 23:34:56'),
-(25, 24, 1, '2017-03-04 16:41:00'),
-(27, 26, 1, '2017-03-08 15:12:06'),
-(30, 26, 1, '2017-03-08 15:12:06');
-
 -- --------------------------------------------------------
 
 --
@@ -98,16 +86,6 @@ CREATE TABLE `groups` (
   `Group_Name` varchar(50) NOT NULL,
   `Date_Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `groups`
---
-
-INSERT INTO `groups` (`Group_ID`, `Group_Name`, `Date_Created`) VALUES
-(1, 'The best group', '2017-03-07 02:41:18'),
-(2, 'Second Group', '2017-03-07 02:41:18'),
-(3, 'Another Random Group', '2017-03-07 02:41:34'),
-(4, 'Databases!', '2017-03-07 02:41:34');
 
 -- --------------------------------------------------------
 
@@ -134,19 +112,6 @@ CREATE TABLE `posts` (
   `message` mediumtext,
   `latestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
-(34, 24, 'hello max', '2017-03-02 15:16:56'),
-(35, 24, 'DASDFAFDA', '2017-03-04 17:30:55'),
-(37, 30, 'hello chw are you', '2017-03-10 22:20:14'),
-(39, 31, 'dsafsad', '2017-03-10 15:26:52'),
-(40, 31, 'hasdfasdf', '2017-03-10 15:26:56'),
-(41, 31, 'asdfasd', '2017-03-10 15:32:52'),
-(43, 30, NULL, '2017-03-14 01:43:35');
 
 -- --------------------------------------------------------
 
@@ -175,12 +140,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `privacysetting`, `profilephoto`, `Timestamp`) VALUES
-(24, 'Han', 'Wang', 'darrenlahr@gmail.com', '2017-02-09', '97f9ea49cd34ce6e52c4a49b7f4aeec1', '', 'male', '', 1, '4', NULL, '2017-03-08 15:17:12'),
-(25, 'Bob', 'Marin', '', '0000-00-00', '', '', '', '', 0, '', NULL, '2017-03-03 23:59:48'),
-(26, 'Rod', 'Smith', '', '0000-00-00', '', '', '', '', 0, '4', NULL, '2017-03-08 15:15:01'),
-(27, 'Bob', 'Smith', '', '0000-00-00', '', '', '', '', 0, '3', NULL, '2017-03-08 15:10:18'),
 (30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-14 00:43:48'),
-(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', '30d4f7a7-c67f-463b-9b27-9e7233ca4541/image.jpg', '2017-03-10 22:55:53');
+(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', NULL, '2017-03-14 13:43:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_chat`
+--
+
+CREATE TABLE `users_chat` (
+  `User_ID` int(11) NOT NULL,
+  `Message_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -192,15 +164,6 @@ CREATE TABLE `users_groups` (
   `User_ID` int(11) NOT NULL,
   `Group_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users_groups`
---
-
-INSERT INTO `users_groups` (`User_ID`, `Group_ID`) VALUES
-(24, 1),
-(24, 2),
-(25, 4);
 
 --
 -- Indexes for dumped tables
@@ -245,7 +208,8 @@ ALTER TABLE `groups`
 --
 ALTER TABLE `photos`
   ADD PRIMARY KEY (`Photo_id`),
-  ADD KEY `Photo_id` (`Photo_id`);
+  ADD KEY `Photo_id` (`Photo_id`),
+  ADD KEY `User_id` (`User_id`);
 
 --
 -- Indexes for table `posts`
@@ -260,6 +224,13 @@ ALTER TABLE `posts`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`User_id`),
   ADD KEY `PrivacySetting_FK` (`privacysetting`);
+
+--
+-- Indexes for table `users_chat`
+--
+ALTER TABLE `users_chat`
+  ADD UNIQUE KEY `User_ID` (`User_ID`,`Message_ID`),
+  ADD KEY `Message_ID` (`Message_ID`);
 
 --
 -- Indexes for table `users_groups`
@@ -281,7 +252,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -291,12 +262,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -333,10 +304,23 @@ ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`User_id1`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `photos`
+--
+ALTER TABLE `photos`
+  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_id`);
+
+--
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_chat`
+--
+ALTER TABLE `users_chat`
+  ADD CONSTRAINT `users_chat_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_chat_ibfk_2` FOREIGN KEY (`Message_ID`) REFERENCES `chat` (`Message_ID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users_groups`
