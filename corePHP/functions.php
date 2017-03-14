@@ -592,6 +592,49 @@ function removeUserProfilePicture(){
 
 }
 
+// 14/03/17 This function will pull the name of the user and the profile image
+
+function viewProfilePull($UserID){
+
+    // Will take in the get variable.
+
+    $con = connectToDatabase();
+
+    // Filter the variable and ensure its an int.
+
+    $UserID = filter_var($UserID, FILTER_VALIDATE_INT);
+
+    // We need to pull the users name and the profilephoto
+
+    $query = "SELECT First_name, Last_name,profilephoto FROM users WHERE User_id=".$UserID;
+
+    $result = mysqli_query($con, $query);
+
+    $singleRow = mysqli_fetch_assoc($result);
+
+    // We now need to echo out a string that contains the users name
+
+    $html = $singleRow['First_name'] . " " . $singleRow['Last_name'];
+
+    // We now need to grab the users profile image if they have one
+
+    $profilephoto = $singleRow['profilephoto'];
+
+
+    // Is there is a photo put it else put default one.
+
+    if($profilephoto){
+        $imagehtml = "<img width='80' height='80' src='../vendor/fineuploader/php-traditional-server/files/$profilephoto' style='margin-right:10px;' class='img-rounded'>";
+    } else {
+        $imagehtml = "<img width='80' height='80' style='margin-right:10px;' class='img-rounded'>";
+    }
+
+
+    return $imagehtml . $html;
+
+
+}
+
 
 
 

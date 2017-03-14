@@ -21,6 +21,10 @@ if(!is_logged_in()){
 
 }
 
+// Need to run a function to pull the name of the users page we are viewing
+
+$html = viewProfilePull($_GET['userID']);
+
 #On every page we need a variable that will highlight the relevant page we are on
 # in the nav bar
 
@@ -608,7 +612,7 @@ $pageTitle = 'viewprofile';
         <!-- The first row will consist of the page header/welcome message. -->
         <div class="row" style="padding-top: 50px">
             <div class="page-header">
-                <h1><?php echo "Welcome: ". $_SESSION['First_name']?></h1>
+                <h1><?php echo $html ?></h1>
             </div>
         </div>
 

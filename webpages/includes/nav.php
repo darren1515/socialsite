@@ -39,6 +39,7 @@
             <ul class="nav navbar-nav">
                 <li <?php if($pageTitle == "index") echo 'class="active"'?>><a href="index.php">Home</a></li>
                 <li <?php if($pageTitle == "profileSettings") echo 'class="active"'?>><a href="profileSettings.php">Profile Settings</a></li>
+                <li <?php if($pageTitle == "friendsRecommendations") echo 'class="active"'?>><a href="friendsRecommendations.php">Friends Recommendations</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
