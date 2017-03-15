@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.5.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 15, 2017 at 02:25 AM
+-- Host: localhost:8889
+-- Generation Time: Mar 15, 2017 at 02:49 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -88,15 +88,6 @@ CREATE TABLE `friends` (
   `time_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `friends`
---
-
-INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
-(30, 31, 1, '2017-03-14 16:51:52'),
-(30, 32, 1, '2017-03-15 00:41:13'),
-(31, 32, 1, '2017-03-15 00:41:19');
-
 -- --------------------------------------------------------
 
 --
@@ -108,18 +99,6 @@ CREATE TABLE `grouprelation` (
   `Group_ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
   `Operation_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `groups`
---
-
-CREATE TABLE `groups` (
-  `Group_ID` int(11) NOT NULL,
-  `Group_Name` varchar(50) NOT NULL,
-  `Date_Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -224,12 +203,6 @@ ALTER TABLE `grouprelation`
   ADD PRIMARY KEY (`Operation_ID`);
 
 --
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`Group_ID`);
-
---
 -- Indexes for table `photos`
 --
 ALTER TABLE `photos`
@@ -259,7 +232,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -269,17 +242,12 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `friendgroup`
 --
 ALTER TABLE `friendgroup`
-  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT for table `grouprelation`
 --
 ALTER TABLE `grouprelation`
-  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 --
 -- AUTO_INCREMENT for table `photos`
 --
@@ -289,7 +257,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
