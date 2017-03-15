@@ -970,7 +970,7 @@ $pageTitle = 'index';
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <p class="text-muted">All rights Reserved 4network</p>
       </div>
     </footer>
 

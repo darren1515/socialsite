@@ -47,13 +47,8 @@
 
                         <!-- new group -->
 
-                        <li><a data-toggle="modal" data-target="#myModal_newgroup">create new group</a></li>
-                        <li><a data-toggle="modal" data-target="#myModal_manage_group" class="open_group_manage">manage group</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a data-toggle="modal" data-target="#myModal_newgroup">Create New Group</a></li>
+                        <li><a data-toggle="modal" data-target="#myModal_manage_group" class="open_group_manage">Manage Group</a></li>
                     </ul>
                 </li>
 

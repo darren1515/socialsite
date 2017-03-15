@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="88858ff3-4f1f-4adf-bf6e-bc77ac86ff03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/chatroom.php" afterPath="$PROJECT_DIR$/webpages/chatroom.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/friendsRecommendations.php" afterPath="$PROJECT_DIR$/webpages/friendsRecommendations.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/includes/nav.php" afterPath="$PROJECT_DIR$/webpages/includes/nav.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/index.php" afterPath="$PROJECT_DIR$/webpages/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/profileSettings.php" afterPath="$PROJECT_DIR$/webpages/profileSettings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/viewprofile.php" afterPath="$PROJECT_DIR$/webpages/viewprofile.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +37,78 @@
     <favorites_list name="uniWebsite" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="nav.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/includes/nav.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chatroom.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/chatroom.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="237" column="58" lean-forward="false" selection-start-line="237" selection-start-column="30" selection-end-line="237" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friendsRecommendations.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/friendsRecommendations.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="299" column="58" lean-forward="false" selection-start-line="299" selection-start-column="58" selection-end-line="299" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="972" column="58" lean-forward="false" selection-start-line="972" selection-start-column="58" selection-end-line="972" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profileSettings.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/profileSettings.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="271" column="58" lean-forward="false" selection-start-line="271" selection-start-column="58" selection-end-line="271" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewprofile.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpages/viewprofile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="646" column="12" lean-forward="true" selection-start-line="646" selection-start-column="12" selection-end-line="646" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="186" column="62" lean-forward="false" selection-start-line="186" selection-start-column="62" selection-end-line="186" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,8 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>connectTo</find>
-      <find>login</find>
       <find>remove</find>
       <find>connectto</find>
       <find>post</find>
@@ -71,6 +147,8 @@
       <find>READ_ALL_POSTS</find>
       <find>View</find>
       <find>newgroup</find>
+      <find>footer</find>
+      <find>foote</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,7 +176,6 @@
         <option value="$PROJECT_DIR$/webpages/api/update_post.php" />
         <option value="$PROJECT_DIR$/webpages/api/create_new_post.php" />
         <option value="$PROJECT_DIR$/dev/4network (1).sql" />
-        <option value="$PROJECT_DIR$/webpages/profileSettings.php" />
         <option value="$PROJECT_DIR$/webpages/api/send_friend_request.php" />
         <option value="$PROJECT_DIR$/webpages/api/read_all_photos.php" />
         <option value="$PROJECT_DIR$/webpages/objects/Blogpost.php" />
@@ -110,16 +187,19 @@
         <option value="$PROJECT_DIR$/webpages/objects/Comments.php" />
         <option value="$PROJECT_DIR$/webpages/api/delete_comment.php" />
         <option value="$PROJECT_DIR$/webpages/objects/Photos.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/webpages/index.php" />
         <option value="$PROJECT_DIR$/webpages/api/read_all_comments.php" />
         <option value="$PROJECT_DIR$/webpages/api/read_all_posts_profile.php" />
         <option value="$PROJECT_DIR$/webpages/api/read_all_photos_profile.php" />
-        <option value="$PROJECT_DIR$/webpages/viewprofile.php" />
         <option value="$PROJECT_DIR$/corePHP/functions.php" />
-        <option value="$PROJECT_DIR$/webpages/includes/nav.php" />
         <option value="$PROJECT_DIR$/webpages/api/get_group_information.php" />
         <option value="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
+        <option value="$PROJECT_DIR$/webpages/includes/nav.php" />
+        <option value="$PROJECT_DIR$/webpages/chatroom.php" />
+        <option value="$PROJECT_DIR$/webpages/friendsRecommendations.php" />
+        <option value="$PROJECT_DIR$/webpages/index.php" />
+        <option value="$PROJECT_DIR$/webpages/profileSettings.php" />
+        <option value="$PROJECT_DIR$/webpages/viewprofile.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -139,9 +219,8 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="720" />
     <option name="y" value="22" />
-    <option name="width" value="720" />
+    <option name="width" value="1440" />
     <option name="height" value="874" />
   </component>
   <component name="ProjectView">
@@ -182,6 +261,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socialsite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socialsite" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="includes" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -248,8 +345,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/webpages/api" />
       <recent name="$PROJECT_DIR$/dev" />
+      <recent name="$PROJECT_DIR$/webpages/api" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/webpages/js" />
     </key>
@@ -377,12 +474,13 @@
       <workItem from="1489585574625" duration="928000" />
       <workItem from="1489600315293" duration="398000" />
       <workItem from="1489600759223" duration="622000" />
-      <workItem from="1489601415504" duration="2987000" />
+      <workItem from="1489601415504" duration="3457000" />
+      <workItem from="1489610632517" duration="427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="287114000" />
+    <option name="totallyTimeSpent" value="288011000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -394,16 +492,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="720" y="22" width="720" height="874" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46312684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21173105" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31841433" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31841433" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -544,13 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/profileSettings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="328" column="31" lean-forward="true" selection-start-line="328" selection-start-column="18" selection-end-line="328" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpages/css/photoCommentStyles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -590,13 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="25" column="45" lean-forward="true" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -677,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/viewprofile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2401">
-          <caret line="614" column="44" lean-forward="false" selection-start-line="614" selection-start-column="44" selection-end-line="614" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/corePHP/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -698,24 +775,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/friendsRecommendations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4522">
-          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpages/api/group_live_search.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-209">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/includes/nav.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="245" column="16" lean-forward="false" selection-start-line="245" selection-start-column="8" selection-end-line="245" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -730,20 +793,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/chatroom.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="692" column="45" lean-forward="false" selection-start-line="692" selection-start-column="45" selection-end-line="692" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -799,6 +848,62 @@
             <marker date="1489603354000" expanded="true" signature="10038:10049" ph="..." />
             <marker date="1489603354000" expanded="true" signature="10189:10215" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/includes/nav.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/chatroom.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="237" column="58" lean-forward="false" selection-start-line="237" selection-start-column="30" selection-end-line="237" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/friendsRecommendations.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="299" column="58" lean-forward="false" selection-start-line="299" selection-start-column="58" selection-end-line="299" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="972" column="58" lean-forward="false" selection-start-line="972" selection-start-column="58" selection-end-line="972" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/profileSettings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="271" column="58" lean-forward="false" selection-start-line="271" selection-start-column="58" selection-end-line="271" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/viewprofile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="646" column="12" lean-forward="true" selection-start-line="646" selection-start-column="12" selection-end-line="646" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="186" column="62" lean-forward="false" selection-start-line="186" selection-start-column="62" selection-end-line="186" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
