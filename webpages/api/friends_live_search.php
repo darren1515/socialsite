@@ -112,14 +112,14 @@ if(isset($_POST['friend_search'])){
 
 
 
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
+                    echo "<tr class='success'><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . "</td></tr>";
 
                 } else {
 
                     // We need to print out both the first name, last name and a button.
 
                     // 14/03/17 add a href to the view buttons, put a variable in the url
-                    echo "<tr><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . " <a href='" . $urlOfFriend . "' rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</a></td></tr>";
+                    echo "<tr class='success'><td style='height:50px' rel='" . $row['Friend_ID'] . "'>$imagehtml" . $row['First_name'] . " " . $row['Last_name'] . " <a href='" . $urlOfFriend . "' rel='" . $row['Friend_ID'] . "' style='height:80%, margin-top:10%' type=\"button\" class=\"btn btn-primary pull-right\">View</a></td></tr>";
 
                 }
 

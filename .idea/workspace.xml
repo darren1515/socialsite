@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="88858ff3-4f1f-4adf-bf6e-bc77ac86ff03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/api/friends_live_search.php" afterPath="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/api/get_group_information.php" afterPath="$PROJECT_DIR$/webpages/api/get_group_information.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpages/api/send_message.php" afterPath="$PROJECT_DIR$/webpages/api/send_message.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +33,44 @@
     <favorites_list name="uniWebsite" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="friends_live_search.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webpages/api/friends_live_search.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="116" column="24" lean-forward="true" selection-start-line="116" selection-start-column="24" selection-end-line="116" selection-end-column="24" />
+              <folding>
+                <marker date="1489603354000" expanded="true" signature="2236:2805" ph="SELECT Frien... User_id2" />
+                <marker date="1489603354000" expanded="true" signature="2324:2506" ph="SELECT User_... friends" />
+                <marker date="1489603354000" expanded="true" signature="2529:2711" ph="SELECT User_... friends" />
+                <marker date="1489603354000" expanded="true" signature="3170:3180" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="4002:4020" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="4139:4157" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="4400:4411" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="4784:4795" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="4962:4988" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="5381:5999" ph="SELECT Stran... User_id2" />
+                <marker date="1489603354000" expanded="true" signature="5452:5925" ph="SELECT CASE User_id1" />
+                <marker date="1489603354000" expanded="true" signature="5650:5783" ph="SELECT CASE friends" />
+                <marker date="1489603354000" expanded="true" signature="6728:6951" ph="SELECT User_... users" />
+                <marker date="1489603354000" expanded="true" signature="7492:7510" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="7621:7639" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="8343:8354" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="8516:8542" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="8650:8676" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="8931:8942" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="9104:9130" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="9238:9264" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="9507:9518" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="9658:9684" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="10038:10049" ph="..." />
+                <marker date="1489603354000" expanded="true" signature="10189:10215" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -110,7 +150,6 @@
         <option value="$PROJECT_DIR$/webpages/objects/Comments.php" />
         <option value="$PROJECT_DIR$/webpages/api/delete_comment.php" />
         <option value="$PROJECT_DIR$/webpages/objects/Photos.php" />
-        <option value="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/webpages/index.php" />
         <option value="$PROJECT_DIR$/webpages/api/read_all_comments.php" />
@@ -120,6 +159,7 @@
         <option value="$PROJECT_DIR$/corePHP/functions.php" />
         <option value="$PROJECT_DIR$/webpages/includes/nav.php" />
         <option value="$PROJECT_DIR$/webpages/api/get_group_information.php" />
+        <option value="$PROJECT_DIR$/webpages/api/friends_live_search.php" />
       </list>
     </option>
   </component>
@@ -139,9 +179,8 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="720" />
     <option name="y" value="22" />
-    <option name="width" value="720" />
+    <option name="width" value="921" />
     <option name="height" value="874" />
   </component>
   <component name="ProjectView">
@@ -159,7 +198,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -182,7 +220,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
+              <option name="myItemId" value="webpages" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -196,7 +234,25 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fine-uploader" />
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socialsite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="socialsite" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -216,6 +272,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -229,17 +286,17 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/webpages/api" />
+      <recent name="$PROJECT_DIR$/dev" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/webpages/js" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/webpages" />
       <recent name="$PROJECT_DIR$/webpages/api" />
       <recent name="$PROJECT_DIR$/dev" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/dev" />
-      <recent name="$PROJECT_DIR$/webpages/api" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/webpages/js" />
     </key>
   </component>
   <component name="RunManager">
@@ -359,11 +416,12 @@
       <workItem from="1489585574625" duration="928000" />
       <workItem from="1489600315293" duration="398000" />
       <workItem from="1489600759223" duration="622000" />
+      <workItem from="1489601415504" duration="2770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284127000" />
+    <option name="totallyTimeSpent" value="286897000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -375,16 +433,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="720" y="22" width="720" height="874" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="921" height="874" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46460176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3572241" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31841433" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31841433" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -672,13 +730,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpages/api/friends_live_search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="98" column="51" lean-forward="false" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpages/api/send_friend_request.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -753,6 +804,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-646">
           <caret line="9" column="18" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="303" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpages/api/friends_live_search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="116" column="24" lean-forward="true" selection-start-line="116" selection-start-column="24" selection-end-line="116" selection-end-column="24" />
+          <folding>
+            <marker date="1489603354000" expanded="true" signature="2236:2805" ph="SELECT Frien... User_id2" />
+            <marker date="1489603354000" expanded="true" signature="2324:2506" ph="SELECT User_... friends" />
+            <marker date="1489603354000" expanded="true" signature="2529:2711" ph="SELECT User_... friends" />
+            <marker date="1489603354000" expanded="true" signature="3170:3180" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="4002:4020" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="4139:4157" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="4400:4411" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="4784:4795" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="4962:4988" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="5381:5999" ph="SELECT Stran... User_id2" />
+            <marker date="1489603354000" expanded="true" signature="5452:5925" ph="SELECT CASE User_id1" />
+            <marker date="1489603354000" expanded="true" signature="5650:5783" ph="SELECT CASE friends" />
+            <marker date="1489603354000" expanded="true" signature="6728:6951" ph="SELECT User_... users" />
+            <marker date="1489603354000" expanded="true" signature="7492:7510" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="7621:7639" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="8343:8354" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="8516:8542" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="8650:8676" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="8931:8942" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="9104:9130" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="9238:9264" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="9507:9518" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="9658:9684" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="10038:10049" ph="..." />
+            <marker date="1489603354000" expanded="true" signature="10189:10215" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
