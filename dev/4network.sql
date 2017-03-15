@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.1
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Mar 14, 2017 at 06:02 PM
+-- Host: localhost
+-- Generation Time: Mar 15, 2017 at 02:25 AM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -75,16 +75,6 @@ CREATE TABLE `friendgroup` (
   `Create_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `friendgroup`
---
-
-INSERT INTO `friendgroup` (`Group_ID`, `Group_name`, `User_ID`, `Create_TIME`) VALUES
-(84, 'rrrrrrrrwwwwwwsssss', 28, '2017-03-14 15:30:28.408356'),
-(87, 'fhgfh', 28, '2017-03-14 15:53:07.680728'),
-(88, 'rrtrrtdtr', 28, '2017-03-14 16:35:27.614205'),
-(89, 'group of master max', 31, '2017-03-14 16:54:05.422537');
-
 -- --------------------------------------------------------
 
 --
@@ -103,7 +93,9 @@ CREATE TABLE `friends` (
 --
 
 INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
-(30, 31, 1, '2017-03-14 16:51:52');
+(30, 31, 1, '2017-03-14 16:51:52'),
+(30, 32, 1, '2017-03-15 00:41:13'),
+(31, 32, 1, '2017-03-15 00:41:19');
 
 -- --------------------------------------------------------
 
@@ -184,7 +176,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `privacysetting`, `profilephoto`, `Timestamp`) VALUES
 (30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-14 00:43:48'),
-(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', NULL, '2017-03-14 13:43:35');
+(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', NULL, '2017-03-14 13:43:35'),
+(32, 'JIALIN', 'YU', 'zhwysh@outlook.com', '2016-12-15', '2b15e296b879e1a51d09bda75f657a9d', '07518206827', 'male', '', 1, '2', NULL, '2017-03-15 00:40:28');
 
 --
 -- Indexes for dumped tables
@@ -266,7 +259,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -276,12 +269,12 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `friendgroup`
 --
 ALTER TABLE `friendgroup`
-  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 --
 -- AUTO_INCREMENT for table `grouprelation`
 --
 ALTER TABLE `grouprelation`
-  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -296,12 +289,12 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- Constraints for dumped tables
 --
@@ -311,13 +304,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `attributes`
   ADD CONSTRAINT `attributes_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `chat`
---
-ALTER TABLE `chat`
-  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`Group_ID`) REFERENCES `groups` (`Group_ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comments`
