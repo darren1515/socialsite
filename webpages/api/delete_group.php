@@ -22,6 +22,9 @@ WHERE Group_ID =" . $groupdi;
     $sql3 = "DELETE FROM grouprelation
 WHERE Group_ID =" . $groupdi;
     $result3 = $con->query($sql3);
+    $sql4 = "DELETE FROM chat
+WHERE Group_ID =" . $groupdi;
+    $result4 = $con->query($sql4);
 
 
     $userID = $_SESSION['User_id'];

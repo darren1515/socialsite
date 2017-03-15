@@ -20,7 +20,7 @@ if(isset($_POST['group_information'])) {
     $userID = $_SESSION['User_id'];
     //write sql query to get message out of the table
 
-    $sql = "SELECT Chat_ID, Message, Send_TIME, First_name, Last_name FROM chat INNER JOIN users ON users.User_id = chat.User_ID WHERE Group_ID =". $groupid;
+    $sql = "SELECT Message_ID, Message, Send_TIME, First_name, Last_name FROM chat INNER JOIN users ON users.User_id = chat.User_ID WHERE Group_ID =". $groupid;
 
     $groupmessage = $con->query($sql);
     $numberOfMessages = mysqli_num_rows($groupmessage);

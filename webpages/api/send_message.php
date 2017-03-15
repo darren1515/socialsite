@@ -22,7 +22,7 @@ $result = $con->query($sql);
 
 // get the groupchat
 
-$sql2 = "SELECT Chat_ID, Message, Send_TIME, First_name, Last_name FROM chat INNER JOIN users ON users.User_id = chat.User_ID WHERE Group_ID =". $groupid;
+$sql2 = "SELECT Message_ID, Message, Send_TIME, First_name, Last_name FROM chat INNER JOIN users ON users.User_id = chat.User_ID WHERE Group_ID =". $groupid;
 
 $groupmessage = $con->query($sql2);
 $numberOfMessages = mysqli_num_rows($groupmessage);
