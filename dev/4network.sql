@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 15, 2017 at 02:49 PM
+-- Generation Time: Mar 15, 2017 at 09:16 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -62,6 +62,15 @@ CREATE TABLE `comments` (
   `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`Comment_ID`, `Text`, `User_ID`, `Photo_ID`, `TimeStamp`) VALUES
+(1, 'South bank tower', 30, 1, '2017-03-15 20:05:16'),
+(2, 'NFL amazing match', 31, 2, '2017-03-15 20:08:18'),
+(3, 'To avoid the queue, check in online. Be smart, be like me :)', 34, 3, '2017-03-15 20:11:34');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +96,14 @@ CREATE TABLE `friends` (
   `friendStatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 is pending, 1 is accepted',
   `time_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`User_id1`, `User_id2`, `friendStatus`, `time_added`) VALUES
+(31, 30, 1, '2017-03-15 19:40:27'),
+(34, 30, 1, '2017-03-15 19:40:31');
 
 -- --------------------------------------------------------
 
@@ -114,6 +131,16 @@ CREATE TABLE `photos` (
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `photos`
+--
+
+INSERT INTO `photos` (`Photo_id`, `User_id`, `location`, `Timestamp`) VALUES
+(1, 30, '8ffb30e6-8238-41a1-bc14-d938c11f4bfe/han.jpg', '2017-03-15 20:04:59'),
+(2, 31, '80a51b68-c8a7-47b6-98bb-dea2e9db4b09/nfl.jpg', '2017-03-15 20:07:56'),
+(3, 34, '51dee866-274a-4a46-82b5-6a09d87b0830/airport.jpg', '2017-03-15 20:11:28'),
+(4, 34, '2a3cff6d-d7c9-45ff-a422-c7d6e0358f26/football.jpg', '2017-03-15 20:12:27');
+
 -- --------------------------------------------------------
 
 --
@@ -126,6 +153,15 @@ CREATE TABLE `posts` (
   `message` mediumtext,
   `latestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
+(1, 30, 'Man, LIFE is always struggling.\\nHowever what relieves us is that, Any plan is the Best plan！', '2017-03-15 20:04:24'),
+(3, 31, 'Great website, I am sure you will get a high mark.', '2017-03-15 20:09:22'),
+(4, 34, 'Off on holiday at long last.', '2017-03-15 20:11:47');
 
 -- --------------------------------------------------------
 
@@ -154,9 +190,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `Password`, `Phone`, `Gender`, `activationToken`, `activated`, `privacysetting`, `profilephoto`, `Timestamp`) VALUES
-(30, 'Darren', 'Lahr', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '4', NULL, '2017-03-14 00:43:48'),
-(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', NULL, '2017-03-14 13:43:35'),
-(32, 'JIALIN', 'YU', 'zhwysh@outlook.com', '2016-12-15', '2b15e296b879e1a51d09bda75f657a9d', '07518206827', 'male', '', 1, '2', NULL, '2017-03-15 00:40:28');
+(30, 'Robert', 'Wu', 'darrenlahr@outlook.com', '1991-10-29', '5b227609682aab59d808bb1e971568e1', '07540223996', 'male', '', 1, '2', NULL, '2017-03-15 19:32:44'),
+(31, 'Wang', 'Chin', 'darren.lahr.16@ucl.ac.uk', '2017-03-24', 'e74df496f5eab1c66b904548e3c01f1d', '', 'male', '', 1, '3', '90115a89-9704-422f-9856-197f8ff0480c/image.jpg', '2017-03-15 19:45:28'),
+(34, 'Max', 'Smith', 'maxrogers12345123@gmail.com', '1993-05-10', 'a407e86902e4208951d2d32b556fa497', '07540663596', 'male', 'f29920facee07b9fd6150b36c2de351017825b81e3e111a8f068b23ea8482274', 1, '4', NULL, '2017-03-15 19:00:37'),
+(35, 'Jenny', 'Li', 'zhwysh@outlook.com', '1995-08-10', '4fae5571104bdb0e915b9370ab2c816c', '', 'female', '94a2b56f31df53a7c2142b389e2010220eb2edfe033897bc70a1454178760290', 1, '1', '13c0b0dc-18d0-4bd2-9cd1-65043fd94e0a/hqdefault.jpg', '2017-03-15 19:59:54');
 
 --
 -- Indexes for dumped tables
@@ -232,37 +269,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `friendgroup`
 --
 ALTER TABLE `friendgroup`
-  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `grouprelation`
 --
 ALTER TABLE `grouprelation`
-  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- Constraints for dumped tables
 --
