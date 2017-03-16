@@ -439,7 +439,7 @@ if(isset($_POST['signUp'])){
                //Get ip address of the server
                $ip = gethostbyname(gethostname());
 
-               $subject = "Facebook Clone Activation Email";
+               $subject = "4network Activation Email";
 
                $activationURL = "http://".$ip.":8888/socialSite/activate.php?token=$token";
                // We now need to create the message that will be
@@ -447,7 +447,7 @@ if(isset($_POST['signUp'])){
                 <html>
                   <body>
                   <p>Dear $firstName, </p>
-                  <p>Thanks for signing up to facebook clone</p>
+                  <p>Thanks for signing up to 4network</p>
                   <p>To activate your account please click the below link <br> $activationURL </p>
                   <p>Once you have activated your account you will receive an email to confirm</p>
                   </body>
