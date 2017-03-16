@@ -61,13 +61,17 @@ if(isset($_GET['token'])){
             // Now redirect the user
 
 
-            header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=1" ."&alertMessage=You have successfully activated your account.");
+            //header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=1" ."&alertMessage=You have successfully activated your account.");
+            //http://4network.azurewebsites.net/socialsite
+
+            header("Location:". "http://4network.azurewebsites.net/socialsite/index.php?alertType=1" ."&alertMessage=You have successfully activated your account.");
+
 
 
         } else {
 
 
-            header("Location:". "http://".$ip.":8888/socialSite/index.php?alertType=3" ."&alertMessage=Your account has either been previously activated or have entered an invalid token ID.");
+            header("Location:". "http://4network.azurewebsites.net/socialsite/index.php?alertType=3" ."&alertMessage=Your account has either been previously activated or have entered an invalid token ID.");
         }
 
 

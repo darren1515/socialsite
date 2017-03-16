@@ -173,7 +173,7 @@ require_once($_SERVER['DOCUMENT_ROOT']. "/socialSite/corePHP/functions.php");
                           </div>
                           <div class="form-group">
                               <label for="telNumber">Phone Number:</label>
-                              <input type="number" class="form-control" id="telNumber" placeholder="optional">
+                              <input type="number" class="form-control" id="telNumber"  placeholder="optional">
                           </div>
                           <!-- 05/03/17 Need to let the user select a privacy level for their profile
                            will it private, or viewable by friends. By default select friends.

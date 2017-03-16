@@ -441,7 +441,13 @@ if(isset($_POST['signUp'])){
 
                $subject = "4network Activation Email";
 
-               $activationURL = "http://".$ip.":8888/socialSite/activate.php?token=$token";
+
+
+
+               //$activationURL = "http://".$ip.":8888/socialSite/activate.php?token=$token";
+
+               $activationURL = "http://4network.azurewebsites.net/socialsite/activate.php?token=$token";
+
                // We now need to create the message that will be
                $htmlMessage =  <<<EOM
                 <html>
