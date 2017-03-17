@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 15, 2017 at 09:16 PM
+-- Generation Time: Mar 17, 2017 at 05:29 PM
 -- Server version: 5.6.34
 -- PHP Version: 7.1.0
 
@@ -48,6 +48,13 @@ CREATE TABLE `chat` (
   `Send_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`Message_ID`, `Group_ID`, `User_ID`, `Message`, `Send_TIME`) VALUES
+(1, 1, 30, 'Welcome to chat', '2017-03-15 20:42:01');
+
 -- --------------------------------------------------------
 
 --
@@ -67,9 +74,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`Comment_ID`, `Text`, `User_ID`, `Photo_ID`, `TimeStamp`) VALUES
-(1, 'South bank tower', 30, 1, '2017-03-15 20:05:16'),
 (2, 'NFL amazing match', 31, 2, '2017-03-15 20:08:18'),
-(3, 'To avoid the queue, check in online. Be smart, be like me :)', 34, 3, '2017-03-15 20:11:34');
+(3, 'To avoid the queue, check in online. Be smart, be like me :)', 34, 3, '2017-03-15 20:11:34'),
+(4, 'Wonderful photo', 30, 1, '2017-03-15 21:05:06'),
+(5, 'Look intersting', 30, 2, '2017-03-15 21:05:43');
 
 -- --------------------------------------------------------
 
@@ -83,6 +91,13 @@ CREATE TABLE `friendgroup` (
   `User_ID` int(11) NOT NULL,
   `Create_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friendgroup`
+--
+
+INSERT INTO `friendgroup` (`Group_ID`, `Group_name`, `User_ID`, `Create_TIME`) VALUES
+(1, 'Test', 30, '2017-03-15 20:42:01.892405');
 
 -- --------------------------------------------------------
 
@@ -117,6 +132,15 @@ CREATE TABLE `grouprelation` (
   `User_ID` int(11) NOT NULL,
   `Operation_TIME` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `grouprelation`
+--
+
+INSERT INTO `grouprelation` (`Operation_ID`, `Group_ID`, `User_ID`, `Operation_TIME`) VALUES
+(1, 1, 30, '2017-03-15 20:42:01.908659'),
+(2, 1, 31, '2017-03-15 20:42:01.944439'),
+(3, 1, 34, '2017-03-15 20:42:01.955928');
 
 -- --------------------------------------------------------
 
@@ -159,9 +183,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postID`, `userID`, `message`, `latestTime`) VALUES
-(1, 30, 'Man, LIFE is always struggling.\\nHowever what relieves us is that, Any plan is the Best plan！', '2017-03-15 20:04:24'),
+(1, 30, 'Man, LIFE is always struggling.\\nHowever what relieves us is that, Any plan is the Best plan！\\n\\nHello', '2017-03-15 21:04:14'),
 (3, 31, 'Great website, I am sure you will get a high mark.', '2017-03-15 20:09:22'),
-(4, 34, 'Off on holiday at long last.', '2017-03-15 20:11:47');
+(4, 34, 'Off on holiday at long last.', '2017-03-15 20:11:47'),
+(5, 30, 'This is some test text', '2017-03-15 21:04:31');
 
 -- --------------------------------------------------------
 
@@ -176,9 +201,9 @@ CREATE TABLE `users` (
   `Username` varchar(50) NOT NULL,
   `dob` date NOT NULL,
   `Password` mediumtext NOT NULL,
-  `Phone` varchar(20) NOT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
   `Gender` varchar(20) NOT NULL,
-  `activationToken` mediumtext NOT NULL,
+  `activationToken` mediumtext,
   `activated` tinyint(1) NOT NULL DEFAULT '0',
   `privacysetting` enum('1','2','3','4') NOT NULL DEFAULT '1',
   `profilephoto` text COMMENT 'the location of the user profile will be stored here',
@@ -269,22 +294,22 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `friendgroup`
 --
 ALTER TABLE `friendgroup`
-  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Group_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `grouprelation`
 --
 ALTER TABLE `grouprelation`
-  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Operation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `photos`
 --
@@ -294,7 +319,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --

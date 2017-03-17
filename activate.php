@@ -36,7 +36,7 @@ if(isset($_GET['token'])){
 
     // First clean the token, as the user may have played around with it
 
-    $token = mysqli_real_escape_string($connection,$_GET['token']);
+    $token = $_GET['token'];
 
     $query = "UPDATE users SET activated = 1, activationToken = NULL WHERE activationToken = '$token'";
 
