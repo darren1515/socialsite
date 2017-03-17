@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.1
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Mar 17, 2017 at 05:36 PM
--- Server version: 5.6.34
--- PHP Version: 7.1.0
+-- Host: localhost:3306
+-- Generation Time: Mar 17, 2017 at 06:55 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `4network`
+-- Database: `11111`
 --
 
 -- --------------------------------------------------------
@@ -220,6 +220,28 @@ INSERT INTO `users` (`User_id`, `First_name`, `Last_name`, `Username`, `dob`, `P
 (34, 'Max', 'Smith', 'maxrogers12345123@gmail.com', '1993-05-10', 'a407e86902e4208951d2d32b556fa497', '07540663596', 'male', 'f29920facee07b9fd6150b36c2de351017825b81e3e111a8f068b23ea8482274', 1, '4', NULL, '2017-03-15 19:00:37'),
 (35, 'Jenny', 'Li', 'zhwysh@outlook.com', '1995-08-10', '4fae5571104bdb0e915b9370ab2c816c', '', 'female', '94a2b56f31df53a7c2142b389e2010220eb2edfe033897bc70a1454178760290', 1, '1', '13c0b0dc-18d0-4bd2-9cd1-65043fd94e0a/hqdefault.jpg', '2017-03-15 19:59:54');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_chat`
+--
+
+CREATE TABLE `users_chat` (
+  `User_ID` int(11) NOT NULL,
+  `Message_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_grouprelation`
+--
+
+CREATE TABLE `users_grouprelation` (
+  `User_ID` int(11) NOT NULL,
+  `Group_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -250,7 +272,8 @@ ALTER TABLE `comments`
 -- Indexes for table `friendgroup`
 --
 ALTER TABLE `friendgroup`
-  ADD PRIMARY KEY (`Group_ID`);
+  ADD PRIMARY KEY (`Group_ID`),
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `friends`
@@ -262,7 +285,9 @@ ALTER TABLE `friends`
 -- Indexes for table `grouprelation`
 --
 ALTER TABLE `grouprelation`
-  ADD PRIMARY KEY (`Operation_ID`);
+  ADD PRIMARY KEY (`Operation_ID`),
+  ADD KEY `Group_ID` (`Group_ID`),
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `photos`
@@ -285,6 +310,22 @@ ALTER TABLE `posts`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`User_id`),
   ADD KEY `PrivacySetting_FK` (`privacysetting`);
+
+--
+-- Indexes for table `users_chat`
+--
+ALTER TABLE `users_chat`
+  ADD UNIQUE KEY `User_ID_2` (`User_ID`,`Message_ID`),
+  ADD KEY `User_ID` (`User_ID`),
+  ADD KEY `Message_ID` (`Message_ID`);
+
+--
+-- Indexes for table `users_grouprelation`
+--
+ALTER TABLE `users_grouprelation`
+  ADD UNIQUE KEY `User_ID_2` (`User_ID`,`Group_ID`),
+  ADD KEY `User_ID` (`User_ID`),
+  ADD KEY `Group_ID` (`Group_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -336,6 +377,13 @@ ALTER TABLE `attributes`
   ADD CONSTRAINT `attributes_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`Group_ID`) REFERENCES `friendgroup` (`Group_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
@@ -343,10 +391,23 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `deleteWhenPhotoDelete` FOREIGN KEY (`Photo_ID`) REFERENCES `photos` (`Photo_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `friendgroup`
+--
+ALTER TABLE `friendgroup`
+  ADD CONSTRAINT `friendgroup_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `friends`
 --
 ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`User_id1`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `grouprelation`
+--
+ALTER TABLE `grouprelation`
+  ADD CONSTRAINT `grouprelation_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `grouprelation_ibfk_2` FOREIGN KEY (`Group_ID`) REFERENCES `friendgroup` (`Group_ID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `photos`
@@ -359,6 +420,20 @@ ALTER TABLE `photos`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_chat`
+--
+ALTER TABLE `users_chat`
+  ADD CONSTRAINT `users_chat_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_chat_ibfk_2` FOREIGN KEY (`Message_ID`) REFERENCES `chat` (`Message_ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_grouprelation`
+--
+ALTER TABLE `users_grouprelation`
+  ADD CONSTRAINT `users_grouprelation_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_grouprelation_ibfk_2` FOREIGN KEY (`Group_ID`) REFERENCES `grouprelation` (`Group_ID`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
